@@ -28,7 +28,7 @@ popd () {
 # recursive loop over files, creating mirrored directories and linking
 # only files. Avoids accidentally adding new files to dotfiles repo
 # if they are created and inserted into a symlinked directory later
-tryfiles () {
+deploy_path () {
   local path="$1"
   if [ -d "${DIR}/${path}" ]; then
     pushd "${DIR}/${path}" || return
@@ -36,7 +36,7 @@ tryfiles () {
     shopt -s nullglob
     for f in *; do
       local newpath="${path}/${f}"
-      tryfiles "${newpath}"
+      deploy_path "${newpath}"
     done
     shopt -u nullglob
     popd || return
@@ -64,6 +64,6 @@ tryfiles () {
 # main loop, ignoring some key files
 for x in *; do
   if [ "$x" != ".git" ] &&[ "$x" != ".gitignore" ] && [ "$x" != "." ] && [ "$x" != ".." ] && [ "$x" != "install.sh" ]&& [ "$x" != "uninstall.sh" ] && [ "$x" != "README.md" ]; then
-    tryfiles "$x"
+    deploy_path "$x"
   fi
 done
