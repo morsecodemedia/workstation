@@ -13,6 +13,11 @@
 # allow globs to see dotfiles
 shopt -s dotglob
 
+# TODO(workstation):
+# Runtime helper functions are intentionally local during the
+# extraction phase. Shared runtime utilities will be extracted
+# only after multiple capabilities require them.
+
 # get reference to script directory as starting point
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
