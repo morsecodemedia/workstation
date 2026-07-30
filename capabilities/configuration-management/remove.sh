@@ -28,13 +28,13 @@ popd () {
   command popd > /dev/null
 }
 
-tryfiles () {
+remove_path () {
   local path="$1"
   if [ -d "${DIR}/${path}" ]; then
     pushd "${DIR}/${path}" || return
     for f in *; do
       local newpath="${path}/${f}"
-      tryfiles "${newpath}"
+      remove_path "${newpath}"
     done
     popd || return
     if [ -z "$(ls -A "${HOME}/${path}")" ]; then
@@ -51,6 +51,6 @@ tryfiles () {
 
 for x in *; do
   if [ "$x" != ".git" ] && [ "$x" != "." ] && [ "$x" != ".." ] && [ "$x" != "install.sh" ]&& [ "$x" != "uninstall.sh" ] && [ "$x" != "README.md" ]; then
-    tryfiles "$x"
+    remove_path "$x"
   fi
 done
