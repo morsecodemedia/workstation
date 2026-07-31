@@ -1,56 +1,52 @@
 #!/usr/bin/env bash
 
-#
-# Configuration Management
-#
-# Operation:
-#   Deploy
-#
-# Purpose:
-#   Deploy repository-managed configuration into the user's environment.
-#
-
 source "$(dirname "${BASH_SOURCE[0]}")/../../lib/runtime.sh"
 
-# recursive loop over files, creating mirrored directories and linking
-# only files. Avoids accidentally adding new files to dotfiles repo
-# if they are created and inserted into a symlinked directory later
-deploy_path () {
-  local path="$1"
-  if [ -d "${REPO_ROOT}/${path}" ]; then
-    pushd "${REPO_ROOT}/${path}" || return
-    mkdir -p "${HOME}/${path}"
-    shopt -s nullglob
-    for f in *; do
-      local newpath="${path}/${f}"
-      deploy_path "${newpath}"
-    done
-    shopt -u nullglob
-    popd || return
-  else
-    if [ -L "${HOME}/${path}" ]; then
-      ln -sfn "${REPO_ROOT}/${path}" "${HOME}/${path}"
-      printf "%-8s %s\n" \
-        "UPDATE" \
-        "${HOME}/${path}" \
-        "${REPO_ROOT}/${path}"
-    elif [ -e "${HOME}/${path}" ]; then
-      printf "%-8s %s\n" \
-        "SKIP" \
-        "${HOME}/${path}"
-    else
-      ln -sfn "${REPO_ROOT}/${path}" "${HOME}/${path}"
-      printf "%-8s %s\n" \
-        "LINK" \
-        "${HOME}/${path}" \
-        "${REPO_ROOT}/${path}"
+parse_args "$@"
+
+deploy_path() {
+
+    local path="$1"
+
+    if [[ -d "${CONFIG_ROOT}/${path}" ]]; then
+
+        run mkdir -p "${HOME}/${path}"
+
+        pushd "${CONFIG_ROOT}/${path}" >/dev/null || return
+
+        shopt -s nullglob
+
+        for file in *; do
+            deploy_path "${path}/${file}"
+        done
+
+        shopt -u nullglob
+
+        popd >/dev/null || return
+
+        return
     fi
-  fi
+
+    local source="${CONFIG_ROOT}/${path}"
+    local target="${HOME}/${path}"
+
+    if [[ -L "$target" ]]; then
+
+        run ln -sfn "$source" "$target"
+        info "UPDATE   $target"
+
+    elif [[ -e "$target" ]]; then
+
+        info "SKIP     $target"
+
+    else
+
+        run ln -sfn "$source" "$target"
+        info "LINK     $target"
+
+    fi
 }
 
-# main loop, ignoring some key files
-for x in *; do
-  if [ "$x" != ".git" ] &&[ "$x" != ".gitignore" ] && [ "$x" != "." ] && [ "$x" != ".." ] && [ "$x" != "install.sh" ]&& [ "$x" != "uninstall.sh" ] && [ "$x" != "README.md" ]; then
-    deploy_path "$x"
-  fi
-done
+if ! walk_configuration deploy_path; then
+    info "Configuration root is empty."
+fi

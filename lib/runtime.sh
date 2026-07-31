@@ -3,44 +3,123 @@
 #
 # Workstation Runtime
 #
-# Purpose:
-#   Shared runtime initialization for Workstation capabilities.
-#
-# Responsibilities:
-#   - Enable required shell options.
-#   - Resolve the repository root.
-#   - Provide quiet directory navigation helpers.
-#
-# This library intentionally owns only runtime concerns.
-# Filesystem operations, traversal, logging, and capability
-# behavior belong to higher-level capability implementations.
+# Shared runtime services used by all Workstation capabilities.
 #
 
-# Enable dotfiles during filesystem traversal.
+set -o errexit
+set -o nounset
+set -o pipefail
+
 shopt -s dotglob
 
-# Resolve the repository root.
-#
-# NOTE:
-# This assumes the calling script resides beneath the repository
-# root. The repository root is determined relative to the calling
-# script rather than the current working directory.
-#
+################################################################################
+# Repository
+################################################################################
+
 SCRIPT_DIR="$(
-  cd "$(dirname "${BASH_SOURCE[1]}")" >/dev/null 2>&1
-  pwd
+    cd "$(dirname "${BASH_SOURCE[1]}")" >/dev/null 2>&1
+    pwd
 )"
 
 REPO_ROOT="$(
-  cd "${SCRIPT_DIR}/../.." >/dev/null 2>&1
-  pwd
+    cd "${SCRIPT_DIR}/../.." >/dev/null 2>&1
+    pwd
 )"
 
-# Quiet pushd/popd wrappers.
-pushd() {
-  command pushd "$@" >/dev/null
+CONFIG_ROOT="${REPO_ROOT}/config"
+
+################################################################################
+# Runtime Options
+################################################################################
+
+DRY_RUN=false
+VERBOSE=false
+
+################################################################################
+# CLI
+################################################################################
+
+parse_args() {
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -n|--dry-run)
+                DRY_RUN=true
+                ;;
+            -v|--verbose)
+                VERBOSE=true
+                ;;
+            *)
+                printf "Unknown option: %s\n" "$1" >&2
+                exit 1
+                ;;
+        esac
+        shift
+    done
 }
 
-popd() {
-  command popd >/dev/null
+################################################################################
+# Logging
+################################################################################
+
+info() {
+    printf "%s\n" "$*"
+}
+
+verbose() {
+    if "$VERBOSE"; then
+        printf "%s\n" "$*"
+    fi
+}
+
+################################################################################
+# Command Execution
+################################################################################
+
+run() {
+
+    if "$DRY_RUN"; then
+
+        printf "[DRY RUN]"
+
+        for arg in "$@"; do
+            printf " %q" "$arg"
+        done
+
+        printf "\n"
+
+    else
+
+        "$@"
+
+    fi
+
+}
+
+################################################################################
+# Configuration Traversal
+################################################################################
+
+walk_configuration() {
+
+    local callback="$1"
+    local found=false
+
+    pushd "${CONFIG_ROOT}" >/dev/null || exit 1
+
+    shopt -s nullglob
+
+    for item in *; do
+        found=true
+        "$callback" "$item"
+    done
+
+    shopt -u nullglob
+
+    popd >/dev/null || exit 1
+
+    if ! "$found"; then
+        return 1
+    fi
+
+    return 0
 }

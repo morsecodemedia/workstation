@@ -4,56 +4,150 @@
 
 Workstation is composed of independent capabilities.
 
-Each capability owns a single responsibility and may depend on lower-level capabilities, but never owns their responsibilities.
+Each capability owns a single constitutional responsibility.
 
-Bootstrap orchestrates capabilities rather than implementing them directly.
+Capabilities expose one or more operations that implement that responsibility.
+
+Capabilities may depend upon lower-level capabilities, but they never assume another capability's responsibility.
+
+Bootstrap orchestrates capabilities rather than implementing workstation functionality directly.
 
 ---
 
-## Capability Hierarchy
+# Capability Hierarchy
 
-Bootstrap (Orchestrator)
+## Bootstrap (Orchestrator)
+
+Coordinates the execution of workstation capabilities.
+
+Depends on:
 
 - Platform Detection
 - Prerequisite Validation
 - Package Management
-- Configuration Deployment
-- Verification
-
-Removal
-
-- Configuration Removal
-- Package Cleanup (future)
+- Configuration Management
 - Verification
 
 ---
 
-## Capability Responsibilities
+## Platform Detection
 
-### Bootstrap
+Determines the characteristics of the execution environment.
 
-Coordinates the provisioning of a new workstation.
+Operations:
 
-### Platform Detection
+- Detect
+- Describe
 
-Determines the operating system, architecture, and supported features.
+---
 
-### Prerequisite Validation
+## Prerequisite Validation
 
-Ensures required tooling is available before installation.
+Determines whether the workstation satisfies the minimum requirements for installation.
 
-### Package Management
+Operations:
 
-Installs and updates required software.
+- Validate
+- Report
 
-### Configuration Deployment
+---
 
-Deploys managed configuration into the user's environment.
+## Package Management
 
-### Verification
+Installs and manages software packages required by Workstation.
 
-Confirms successful installation and reports issues.
+Operations:
 
-### Removal
+- Install
+- Update
+- Remove
+- List
 
-Safely removes workstation-managed artifacts.
+---
+
+## Configuration Management
+
+Maintains the desired workstation configuration.
+
+Configuration Management is the reference capability implementation for the Workstation repository.
+
+Operations:
+
+- Deploy
+- Remove
+- Status
+- Verify
+
+Shared Concepts:
+
+- Desired State
+- Current State
+- Configuration Manifest
+- Configuration Objects
+
+Shared Runtime:
+
+- runtime.sh
+
+---
+
+## Verification
+
+Confirms that the workstation is correctly configured after orchestration completes.
+
+Verification consumes the outputs of lower-level capabilities rather than performing deployment itself.
+
+Operations:
+
+- Verify
+- Report
+
+---
+
+# Capability Principles
+
+Every capability:
+
+- Owns one responsibility.
+- Exposes one or more operations.
+- Has a documented contract.
+- Has a documented implementation.
+- May depend upon lower-level capabilities.
+- Never owns another capability's responsibility.
+
+---
+
+# Capability Relationships
+
+```text
+Bootstrap
+    │
+    ├── Platform Detection
+    ├── Prerequisite Validation
+    ├── Package Management
+    ├── Configuration Management
+    └── Verification
+```
+
+Bootstrap coordinates.
+
+Capabilities implement.
+
+Operations perform work.
+
+---
+
+# Capability Maturity
+
+## Version 1 Complete
+
+- Configuration Management
+
+## Planned
+
+- Platform Detection
+- Prerequisite Validation
+- Package Management
+- Verification
+
+Bootstrap orchestration will be completed after the foundational capabilities have been implemented.
