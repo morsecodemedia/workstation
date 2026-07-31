@@ -10,33 +10,15 @@
 #   Deploy repository-managed configuration into the user's environment.
 #
 
-# allow globs to see dotfiles
-shopt -s dotglob
-
-# TODO(workstation):
-# Runtime helper functions are intentionally local during the
-# extraction phase. Shared runtime utilities will be extracted
-# only after multiple capabilities require them.
-
-# get reference to script directory as starting point
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-# suppress echos from pushd and popd for clean output
-pushd () {
-  command pushd "$@" > /dev/null
-}
-
-popd () {
-  command popd > /dev/null
-}
+source "$(dirname "${BASH_SOURCE[0]}")/../../lib/runtime.sh"
 
 # recursive loop over files, creating mirrored directories and linking
 # only files. Avoids accidentally adding new files to dotfiles repo
 # if they are created and inserted into a symlinked directory later
 deploy_path () {
   local path="$1"
-  if [ -d "${DIR}/${path}" ]; then
-    pushd "${DIR}/${path}" || return
+  if [ -d "${REPO_ROOT}/${path}" ]; then
+    pushd "${REPO_ROOT}/${path}" || return
     mkdir -p "${HOME}/${path}"
     shopt -s nullglob
     for f in *; do
@@ -47,21 +29,21 @@ deploy_path () {
     popd || return
   else
     if [ -L "${HOME}/${path}" ]; then
-      ln -sfn "${DIR}/${path}" "${HOME}/${path}"
+      ln -sfn "${REPO_ROOT}/${path}" "${HOME}/${path}"
       printf "%-8s %s\n" \
         "UPDATE" \
         "${HOME}/${path}" \
-        "${DIR}/${path}"
+        "${REPO_ROOT}/${path}"
     elif [ -e "${HOME}/${path}" ]; then
       printf "%-8s %s\n" \
         "SKIP" \
         "${HOME}/${path}"
     else
-      ln -sfn "${DIR}/${path}" "${HOME}/${path}"
+      ln -sfn "${REPO_ROOT}/${path}" "${HOME}/${path}"
       printf "%-8s %s\n" \
         "LINK" \
         "${HOME}/${path}" \
-        "${DIR}/${path}"
+        "${REPO_ROOT}/${path}"
     fi
   fi
 }

@@ -14,24 +14,12 @@
 # extraction phase.
 #
 
-shopt -s dotglob
-
-# get reference to script directory as starting point
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-# suppress echos from pushd and popd for clean output
-pushd () {
-  command pushd "$@" > /dev/null
-}
-
-popd () {
-  command popd > /dev/null
-}
+source "$(dirname "${BASH_SOURCE[0]}")/../../lib/runtime.sh"
 
 remove_path () {
   local path="$1"
-  if [ -d "${DIR}/${path}" ]; then
-    pushd "${DIR}/${path}" || return
+  if [ -d "${REPO_ROOT}/${path}" ]; then
+    pushd "${REPO_ROOT}/${path}" || return
     for f in *; do
       local newpath="${path}/${f}"
       remove_path "${newpath}"
