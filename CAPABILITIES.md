@@ -8,9 +8,43 @@ Each capability owns a single constitutional responsibility.
 
 Capabilities expose one or more operations that implement that responsibility.
 
+Capabilities communicate through well-defined inputs and outputs rather than by sharing responsibilities.
+
 Capabilities may depend upon lower-level capabilities, but they never assume another capability's responsibility.
 
 Bootstrap orchestrates capabilities rather than implementing workstation functionality directly.
+
+---
+
+# Capability Types
+
+Workstation capabilities fall into several architectural categories.
+
+## Orchestration
+
+Coordinates the execution of other capabilities.
+
+- Bootstrap
+
+## Discovery
+
+Observes the execution environment and produces facts.
+
+- Platform Detection
+
+## Validation
+
+Evaluates the current environment against defined requirements.
+
+- Prerequisite Validation
+- Verification
+
+## Management
+
+Creates or maintains workstation resources.
+
+- Package Management
+- Configuration Management
 
 ---
 
@@ -19,6 +53,10 @@ Bootstrap orchestrates capabilities rather than implementing workstation functio
 ## Bootstrap (Orchestrator)
 
 Coordinates the execution of workstation capabilities.
+
+Bootstrap owns workflow.
+
+It does not implement workstation functionality directly.
 
 Depends on:
 
@@ -32,23 +70,25 @@ Depends on:
 
 ## Platform Detection
 
-Determines the characteristics of the execution environment.
+Discovers the characteristics of the current execution environment.
+
+Produces an environment description consumed by higher-level capabilities.
 
 Operations:
 
 - Detect
-- Describe
 
 ---
 
 ## Prerequisite Validation
 
-Determines whether the workstation satisfies the minimum requirements for installation.
+Determines whether the current workstation satisfies the minimum requirements for Workstation.
+
+Consumes the environment description produced by Platform Detection.
 
 Operations:
 
 - Validate
-- Report
 
 ---
 
@@ -93,14 +133,15 @@ Shared Runtime:
 
 ## Verification
 
-Confirms that the workstation is correctly configured after orchestration completes.
+Confirms that the workstation matches the expected configuration after orchestration completes.
 
-Verification consumes the outputs of lower-level capabilities rather than performing deployment itself.
+Verification consumes the outputs of lower-level capabilities.
+
+It performs no deployment.
 
 Operations:
 
 - Verify
-- Report
 
 ---
 
@@ -108,10 +149,12 @@ Operations:
 
 Every capability:
 
-- Owns one responsibility.
+- Owns exactly one responsibility.
 - Exposes one or more operations.
-- Has a documented contract.
+- Has a documented capability contract.
 - Has a documented implementation.
+- Produces well-defined outputs.
+- Consumes well-defined inputs.
 - May depend upon lower-level capabilities.
 - Never owns another capability's responsibility.
 
@@ -122,32 +165,17 @@ Every capability:
 ```text
 Bootstrap
     │
-    ├── Platform Detection
-    ├── Prerequisite Validation
-    ├── Package Management
-    ├── Configuration Management
-    └── Verification
-```
-
-Bootstrap coordinates.
-
-Capabilities implement.
-
-Operations perform work.
-
----
-
-# Capability Maturity
-
-## Version 1 Complete
-
-- Configuration Management
-
-## Planned
-
-- Platform Detection
-- Prerequisite Validation
-- Package Management
-- Verification
-
-Bootstrap orchestration will be completed after the foundational capabilities have been implemented.
+    ▼
+Platform Detection
+    │
+    ▼
+Prerequisite Validation
+    │
+    ▼
+Package Management
+    │
+    ▼
+Configuration Management
+    │
+    ▼
+Verification
