@@ -7,8 +7,9 @@ parse_args "$@"
 
 json="$(platform_detect_macos)"
 
-if [[ "$PRETTY" == true ]]; then
-    printf "%s\n" "$json" | render_pretty
+if is_pretty; then
+    printf "%s\n" "${json}" \
+        | "$(dirname "${BASH_SOURCE[0]}")/renderers/pretty.sh"
 else
-    printf "%s\n" "$json"
+    printf "%s\n" "${json}"
 fi
