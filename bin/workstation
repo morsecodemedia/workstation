@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+usage() {
+
+cat <<EOF
+Workstation
+
+Usage:
+
+  workstation <capability> <operation> [options]
+
+Capabilities
+
+  platform
+    detect
+
+  config
+    deploy
+    remove
+    status
+
+EOF
+
+}
+
+[[ $# -eq 0 ]] && {
+    usage
+    exit 0
+}
+
+capability="$1"
+shift || true
+
+operation="${1:-}"
+[[ $# -gt 0 ]] && shift
+
+case "${capability}" in
+
+  platform)
+
+    case "${operation}" in
+
+      detect)
+        exec "${ROOT}/capabilities/platform-detection/detect.sh" "$@"
+        ;;
+
+      *)
+        echo "Unknown platform operation: ${operation}"
+        exit 1
+        ;;
+
+    esac
+    ;;
+
+  prerequisites)
+
+    case "${operation}" in
+
+      validate)
+        exec "${ROOT}/capabilities/prerequisite-validation/validate.sh" "$@"
+        ;;
+
+      *)
+        echo "Unknown prerequisite operation: ${operation}"
+        exit 1
+        ;;
+
+    esac
+    ;;
+
+
+  config)
+
+    case "${operation}" in
+
+      deploy)
+        exec "${ROOT}/capabilities/configuration-management/deploy.sh" "$@"
+        ;;
+
+      remove)
+        exec "${ROOT}/capabilities/configuration-management/remove.sh" "$@"
+        ;;
+
+      status)
+        exec "${ROOT}/capabilities/configuration-management/status.sh" "$@"
+        ;;
+
+      *)
+        echo "Unknown configuration operation: ${operation}"
+        exit 1
+        ;;
+
+    esac
+    ;;
+
+  *)
+
+    echo "Unknown capability: ${capability}"
+    exit 1
+    ;;
+
+esac
