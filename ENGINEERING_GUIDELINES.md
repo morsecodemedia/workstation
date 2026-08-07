@@ -122,3 +122,31 @@ This principle enables:
 - stable capability interfaces
 - reusable tooling
 - independent presentation layers
+
+---
+
+# Capability Communication
+
+Capabilities communicate through structured data streamed over standard output.
+
+Capabilities consume structured data from standard input when appropriate.
+
+Capabilities do not communicate through shared files or in-memory state unless explicitly required by the capability contract.
+
+This follows the Unix philosophy of composing small, deterministic programs through pipelines.
+
+---
+
+## Capability Pipelines
+
+Capabilities communicate through structured data streamed over standard output.
+
+Capabilities consume structured data from standard input.
+
+Capabilities should be composable through standard shell pipelines whenever practical.
+
+The shell is the orchestration layer.
+
+Capabilities remain independent.
+
+This follows the Unix philosophy of building small, deterministic programs that cooperate through well-defined interfaces.
