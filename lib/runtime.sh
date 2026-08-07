@@ -34,27 +34,48 @@ CONFIG_ROOT="${REPO_ROOT}/config"
 
 DRY_RUN=false
 VERBOSE=false
+PRETTY=false
+JSON=true
 
 ################################################################################
 # CLI
 ################################################################################
 
 parse_args() {
+
     while [[ $# -gt 0 ]]; do
+
         case "$1" in
+
             -n|--dry-run)
                 DRY_RUN=true
                 ;;
+
             -v|--verbose)
                 VERBOSE=true
                 ;;
+
+            -p|--pretty)
+                PRETTY=true
+                JSON=false
+                ;;
+
+            --json)
+                PRETTY=false
+                JSON=true
+                ;;
+
             *)
                 printf "Unknown option: %s\n" "$1" >&2
                 exit 1
                 ;;
+
         esac
+
         shift
+
     done
+
 }
 
 ################################################################################
@@ -69,6 +90,14 @@ verbose() {
     if "$VERBOSE"; then
         printf "%s\n" "$*"
     fi
+}
+
+is_pretty() {
+    "$PRETTY"
+}
+
+is_json() {
+    "$JSON"
 }
 
 ################################################################################

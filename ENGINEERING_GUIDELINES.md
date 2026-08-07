@@ -80,14 +80,16 @@ Runtime never owns capability logic.
 
 # Capability Completion Checklist
 
-A Version 1 capability is complete when:
+A capability is considered Version 1 Complete when:
 
-- Contract exists.
+- The capability contract is locked.
 - Operations are documented.
 - Implementation exists.
-- Runtime integration exists.
-- Validation succeeds.
-- Documentation matches implementation.
+- Shared runtime integration exists.
+- Structured output exists.
+- Human-readable presentation exists.
+- Tests validate expected behavior.
+- Architecture and implementation agree.
 
 Future enhancements belong to Version 2.
 
