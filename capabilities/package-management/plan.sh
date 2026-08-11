@@ -11,4 +11,18 @@ supported="$(
         | jq -r '.supported'
 )"
 
-printf "%s\n" "${supported}"
+if [[ "${supported}" != "true" ]]; then
+
+    jq -n '
+    {
+        schema: "package-plan/v1",
+        manager: null,
+        operations: [],
+        warnings: [
+            "Platform is not supported."
+        ]
+    }'
+
+    exit 0
+
+fi
