@@ -18,6 +18,13 @@ Capabilities
   platform
     detect
 
+  prerequisites
+      validate
+
+  packages
+      plan
+      apply
+
   config
     deploy
     remove
@@ -47,6 +54,7 @@ case "${capability}" in
       detect)
         exec "${ROOT}/capabilities/platform-detection/detect.sh" "$@"
         ;;
+        
 
       *)
         echo "Unknown platform operation: ${operation}"
@@ -66,6 +74,26 @@ case "${capability}" in
 
       *)
         echo "Unknown prerequisite operation: ${operation}"
+        exit 1
+        ;;
+
+    esac
+    ;;
+
+  packages)
+
+    case "${operation}" in
+
+      plan)
+        exec "${ROOT}/capabilities/package-management/plan.sh" "$@"
+        ;;
+
+      apply)
+        exec "${ROOT}/capabilities/package-management/apply.sh" "$@"
+        ;;
+
+      *)
+        echo "Unknown package operation: ${operation}"
         exit 1
         ;;
 

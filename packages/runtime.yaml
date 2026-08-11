@@ -1,0 +1,45 @@
+schema: package-catalog/v1
+
+catalog:
+  id: runtime
+  name: Runtime
+  description: >
+    Foundational packages required for the Workstation runtime
+    to function correctly.
+
+packages:
+
+  - id: git
+    action: install
+    required: true
+    reason: >
+      Required for repository management and source control
+      operations throughout the MCU.
+
+  - id: curl
+    action: install
+    required: true
+    reason: >
+      Required for network operations, downloads,
+      and remote resource retrieval.
+
+  - id: nodejs
+    action: install
+    required: true
+    reason: >
+      Required for JavaScript tooling and execution of
+      Node-based utilities.
+
+  - id: ripgrep
+    action: install
+    required: true
+    replaces:
+      - ag
+    reason: >
+      Provides fast recursive searching and replaces
+      The Silver Searcher.
+
+metadata:
+  owner: Workstation
+  version: 1
+  status: active
