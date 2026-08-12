@@ -150,3 +150,19 @@ The shell is the orchestration layer.
 Capabilities remain independent.
 
 This follows the Unix philosophy of building small, deterministic programs that cooperate through well-defined interfaces.
+
+---
+
+## Runtime Primitives vs Runtime Commands
+
+Runtime Primitives are reusable shell functions.
+
+They are intended to be sourced by Runtime and capabilities.
+
+Runtime Commands are executable entry points.
+
+They provide process-safe access to Runtime Primitives for subprocesses, pipelines, and external tools.
+
+Runtime Commands should delegate to Runtime Primitives whenever practical.
+
+Runtime Primitives should never invoke Runtime Commands.

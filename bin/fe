@@ -10,36 +10,18 @@ source "${ROOT}/lib/runtime.sh"
 
 query="${1:-}"
 
-preview_command=""
+# once workstation is instailled, we can swap out these lines
+# preview_command="render_preview {}"
+preview_command="${ROOT}/bin/render-preview {}"
 
-if command -v batcat >/dev/null 2>&1; then
-    preview_command="batcat --theme Dracula --color=always {}"
-elif command -v bat >/dev/null 2>&1; then
-    preview_command="bat --theme Dracula --color=always {}"
-fi
-
-if [[ -n "${preview_command}" ]]; then
-
-    file="$(
-        fzf \
-            --query="${query}" \
-            --multi \
-            --select-1 \
-            --exit-0 \
-            --preview "${preview_command}"
-    )"
-
-else
-
-    file="$(
-        fzf \
-            --query="${query}" \
-            --multi \
-            --select-1 \
-            --exit-0
-    )"
-
-fi
+file="$(
+    fzf \
+        --query="${query}" \
+        --multi \
+        --select-1 \
+        --exit-0 \
+        --preview "${preview_command}"
+)"
 
 [[ -n "${file}" ]] || exit 0
 

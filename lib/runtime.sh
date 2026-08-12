@@ -128,13 +128,13 @@ run() {
 # Runtime Services
 ################################################################################
 
-open_editor() {
+RUNTIME_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-    [[ $# -eq 1 ]] || return 1
+# shellcheck source=runtime/editor.sh
+source "${RUNTIME_DIR}/runtime/editor.sh"
 
-    "${EDITOR:-vi}" "$1"
-
-}
+# shellcheck source=runtime/preview.sh
+source "${RUNTIME_DIR}/runtime/preview.sh"
 
 ################################################################################
 # Configuration Traversal
