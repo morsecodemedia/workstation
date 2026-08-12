@@ -14,6 +14,9 @@ source "$(dirname "${BASH_SOURCE[0]}")/../../lib/runtime.sh"
 
 parse_args "$@"
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+
 ################################################################################
 # Input
 ################################################################################
@@ -27,6 +30,23 @@ execution_state="$(cat)"
 supported="$(
     printf "%s\n" "${execution_state}" \
         | jq -r '.validation.supported'
+)"
+
+catalog="${ROOT}/packages/runtime.json"
+
+packages="$(
+    catalog_packages "${catalog}"
+)"
+
+operations="$(
+    printf "%s\n" "${packages}" \
+    | jq '
+        map({
+            action: .action,
+            package: .id,
+            reason: .reason
+        })
+    '
 )"
 
 ################################################################################
@@ -53,11 +73,12 @@ fi
 # Version 1
 ################################################################################
 
-jq -n '
+jq -n \
+    --argjson operations "${operations}" '
 {
     schema: "package-plan/v1",
     manager: "brew",
-    operations: [],
+    operations: $operations,
     warnings: []
 }
 '

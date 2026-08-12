@@ -1,0 +1,14 @@
+{
+  "schema": "package-catalog/v1",
+  "catalog": {
+    "id": "macos",
+    "name": "MacOS",
+    "description": ""
+  },
+  "packages": [],
+  "metadata": {
+    "owner": "Workstation",
+    "version": 1,
+    "status": "draft"
+  }
+}

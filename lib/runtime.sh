@@ -145,6 +145,9 @@ source "${RUNTIME_DIR}/runtime/selector.sh"
 # shellcheck source=runtime/navigation.sh
 source "${RUNTIME_DIR}/runtime/navigation.sh"
 
+# shellcheck source=runtime/catalog.sh
+source "${RUNTIME_DIR}/runtime/catalog.sh"
+
 ################################################################################
 # Configuration Traversal
 ################################################################################
