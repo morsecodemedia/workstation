@@ -3,11 +3,21 @@
 ################################################################################
 # Runtime Primitive
 #
-# History
+# Selector
 ################################################################################
 
-history_list() {
+selector_choose() {
 
-    fc -l 1 2>/dev/null || history
+    fzf +m
+
+}
+
+selector_choose_preview() {
+
+    [[ $# -eq 1 ]] || return 1
+
+    fzf \
+        +m \
+        --preview "$1"
 
 }

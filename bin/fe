@@ -11,8 +11,8 @@ source "${ROOT}/lib/runtime.sh"
 query="${1:-}"
 
 # once workstation is instailled, we can swap out these lines
-# preview_command="render_preview {}"
-preview_command="${ROOT}/bin/render-preview {}"
+# preview_command="preview_render {}"
+preview_command="${ROOT}/bin/preview-render {}"
 
 file="$(
     fzf \
@@ -25,4 +25,4 @@ file="$(
 
 [[ -n "${file}" ]] || exit 0
 
-open_editor "${file}"
+editor_open "${file}"

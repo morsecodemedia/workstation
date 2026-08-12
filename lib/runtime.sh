@@ -125,7 +125,7 @@ run() {
 }
 
 ################################################################################
-# Runtime Services
+# Runtime Primitives
 ################################################################################
 
 RUNTIME_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -135,6 +135,15 @@ source "${RUNTIME_DIR}/runtime/editor.sh"
 
 # shellcheck source=runtime/preview.sh
 source "${RUNTIME_DIR}/runtime/preview.sh"
+
+# shellcheck source=runtime/finder.sh
+source "${RUNTIME_DIR}/runtime/finder.sh"
+
+# shellcheck source=runtime/selector.sh
+source "${RUNTIME_DIR}/runtime/selector.sh"
+
+# shellcheck source=runtime/navigation.sh
+source "${RUNTIME_DIR}/runtime/navigation.sh"
 
 ################################################################################
 # Configuration Traversal

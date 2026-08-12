@@ -4,7 +4,7 @@
 # Editor Runtime Primitive
 ################################################################################
 
-open_editor() {
+editor_open() {
 
     [[ $# -eq 1 ]] || return 1
 

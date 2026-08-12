@@ -8,4 +8,4 @@ ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 # shellcheck source=../lib/runtime.sh
 source "${ROOT}/lib/runtime.sh"
 
-render_preview "$1"
+preview_render "$@"

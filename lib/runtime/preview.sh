@@ -4,7 +4,7 @@
 # Preview Runtime Primitive
 ################################################################################
 
-render_preview() {
+preview_render() {
 
     [[ $# -eq 1 ]] || return 1
 
