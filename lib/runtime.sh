@@ -149,6 +149,13 @@ source "${RUNTIME_DIR}/runtime/navigation.sh"
 source "${RUNTIME_DIR}/runtime/catalog.sh"
 
 ################################################################################
+# Orchestration
+################################################################################
+
+# shellcheck source=orchestration.sh
+source "${RUNTIME_DIR}/orchestration.sh"
+
+################################################################################
 # Configuration Traversal
 ################################################################################
 

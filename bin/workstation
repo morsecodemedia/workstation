@@ -19,16 +19,19 @@ Capabilities
     detect
 
   prerequisites
-      validate
+    validate
 
   packages
-      plan
-      apply
+    plan
+    apply
 
   config
     deploy
     remove
     status
+
+  bootstrap
+    Initialize a workstation
 
 EOF
 
@@ -123,6 +126,10 @@ case "${capability}" in
         ;;
 
     esac
+    ;;
+
+  bootstrap)
+    exec "${ROOT}/orchestrators/bootstrap/bootstrap.sh" "$@"
     ;;
 
   *)

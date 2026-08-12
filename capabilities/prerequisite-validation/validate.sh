@@ -25,9 +25,9 @@ platform_description="$(cat)"
 # Extract Platform Facts
 ################################################################################
 
-os="$(printf '%s\n' "${platform_description}" | jq -r '.platform.os')"
+os="$(printf '%s\n' "${platform_description}" | jq -r '.platform.platform.os')"
 
-architecture="$(printf '%s\n' "${platform_description}" | jq -r '.platform.architecture')"
+architecture="$(printf '%s\n' "${platform_description}" | jq -r '.platform.platform.architecture')"
 
 ################################################################################
 # Validation
