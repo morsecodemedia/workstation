@@ -1,0 +1,27 @@
+{
+  "schema": "package-plan/v1",
+  "manager": "brew",
+  "operations": [
+    {
+      "action": "install",
+      "package": "git",
+      "reason": "Required for repository management and source control operations throughout the MCU."
+    },
+    {
+      "action": "install",
+      "package": "curl",
+      "reason": "Required for network operations, downloads, and remote resource retrieval."
+    },
+    {
+      "action": "install",
+      "package": "nodejs",
+      "reason": "Required for JavaScript tooling and execution of Node-based utilities."
+    },
+    {
+      "action": "install",
+      "package": "ripgrep",
+      "reason": "Provides fast recursive searching and replaces The Silver Searcher."
+    }
+  ],
+  "warnings": []
+}

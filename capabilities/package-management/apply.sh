@@ -1,7 +1,56 @@
 #!/usr/bin/env bash
 
-echo "Package Management: Apply"
-echo
-echo "Not implemented."
+################################################################################
+# Package Management
+#
+# Operation:
+#   Apply
+################################################################################
 
-exit 1
+source "$(dirname "${BASH_SOURCE[0]}")/../../lib/runtime.sh"
+
+parse_args "$@"
+
+
+################################################################################
+# Input
+################################################################################
+
+package_plan="$(cat)"
+
+################################################################################
+# Validation
+################################################################################
+
+manager="$(
+    printf "%s\n" "${package_plan}" \
+        | jq -r '.manager'
+)"
+
+operations="$(
+    printf "%s\n" "${package_plan}" \
+        | jq '
+            .operations
+            | map({
+                action: .action,
+                package: .package,
+                status: "planned"
+            })
+        '
+)"
+
+
+################################################################################
+# Version 1
+################################################################################
+
+jq -n \
+  --argjson operations "${operations}" '
+
+{
+    schema: "package-result/v1",
+    success: true,
+    operations: $operations,
+    warnings: []
+}
+'
