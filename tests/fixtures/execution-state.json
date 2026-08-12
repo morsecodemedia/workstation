@@ -1,0 +1,26 @@
+{
+  "schema": "execution-state/v1",
+
+  "platform": {
+    "schema": "platform-description/v1",
+    "platform": {
+      "os": "macos",
+      "distribution": "darwin",
+      "version": "15.7.7",
+      "architecture": "arm64"
+    },
+    "environment": {
+      "shell": "bash",
+      "user": "test",
+      "home": "/Users/test"
+    },
+    "warnings": []
+  },
+
+  "validation": {
+    "schema": "validation-report/v1",
+    "supported": true,
+    "errors": [],
+    "warnings": []
+  }
+}
