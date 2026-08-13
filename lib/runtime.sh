@@ -83,12 +83,12 @@ parse_args() {
 ################################################################################
 
 info() {
-    printf "%s\n" "$*"
+    printf "%s\n" "$*" >&2
 }
 
 verbose() {
     if "$VERBOSE"; then
-        printf "%s\n" "$*"
+        printf "%s\n" "$*" >&2
     fi
 }
 
@@ -100,6 +100,14 @@ is_json() {
     "$JSON"
 }
 
+is_dry_run() {
+    "$DRY_RUN"
+}
+
+is_verbose() {
+    "$VERBOSE"
+}
+
 ################################################################################
 # Command Execution
 ################################################################################
@@ -108,13 +116,13 @@ run() {
 
     if "$DRY_RUN"; then
 
-        printf "[DRY RUN]"
+        printf "[DRY RUN]" >&2
 
         for arg in "$@"; do
-            printf " %q" "$arg"
+            printf " %q" "$arg" >&2
         done
 
-        printf "\n"
+        printf "\n" >&2
 
     else
 

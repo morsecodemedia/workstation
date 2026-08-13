@@ -4,49 +4,104 @@ source "$(dirname "${BASH_SOURCE[0]}")/../../lib/runtime.sh"
 
 parse_args "$@"
 
+operations='[]'
+
+record_operation() {
+
+    local action="$1"
+    local source="$2"
+    local target="$3"
+    local status="$4"
+
+    local operation
+
+    operation="$(
+        jq -n \
+            --arg action "${action}" \
+            --arg source "${source}" \
+            --arg target "${target}" \
+            --arg status "${status}" '
+            {
+                action: $action,
+                source: $source,
+                target: $target,
+                status: $status
+            }
+            '
+    )"
+
+    operations="$(
+      printf '%s\n%s\n' "${operations}" "${operation}" \
+        | jq -s '.[0] + [.[1]]'
+    )"
+
+}
+
 deploy_path() {
 
-    local path="$1"
+  local path="$1"
 
-    if [[ -d "${CONFIG_ROOT}/${path}" ]]; then
+  if [[ -d "${CONFIG_ROOT}/${path}" ]]; then
 
-        run mkdir -p "${HOME}/${path}"
+    run mkdir -p "${HOME}/${path}"
 
-        pushd "${CONFIG_ROOT}/${path}" >/dev/null || return
+    pushd "${CONFIG_ROOT}/${path}" >/dev/null || return
 
-        shopt -s nullglob
+    shopt -s nullglob
 
-        for file in *; do
-            deploy_path "${path}/${file}"
-        done
+    for file in *; do
+      deploy_path "${path}/${file}"
+    done
 
-        shopt -u nullglob
+    shopt -u nullglob
 
-        popd >/dev/null || return
+    popd >/dev/null || return
 
-        return
-    fi
+    return
+  fi
 
-    local source="${CONFIG_ROOT}/${path}"
-    local target="${HOME}/${path}"
+  local source="${CONFIG_ROOT}/${path}"
+  local target="${HOME}/${path}"
 
-    if [[ -L "$target" ]]; then
+  if [[ -L "$target" ]]; then
 
-        run ln -sfn "$source" "$target"
-        info "UPDATE   $target"
+    run ln -sfn "$source" "$target"
+    record_operation \
+      "link" \
+      "${source}" \
+      "${target}" \
+      "planned"
 
-    elif [[ -e "$target" ]]; then
+  elif [[ -e "$target" ]]; then
 
-        info "SKIP     $target"
+    record_operation \
+      "link" \
+      "${source}" \
+      "${target}" \
+      "skipped"
 
-    else
+  else
 
-        run ln -sfn "$source" "$target"
-        info "LINK     $target"
+    run ln -sfn "$source" "$target"
+    record_operation \
+      "link" \
+      "${source}" \
+      "${target}" \
+      "planned"
 
-    fi
+  fi
 }
 
 if ! walk_configuration deploy_path; then
-    info "Configuration root is empty."
+  :
 fi
+
+jq -n \
+  --argjson operations "${operations}" '
+{
+  schema: "configuration-state/v1",
+  mode: "dry-run",
+  operations: $operations,
+  warnings: []
+}
+'

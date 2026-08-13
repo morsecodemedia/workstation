@@ -35,46 +35,31 @@ Bootstrap composes Execution State throughout the workflow.
 Bootstrap executes the following workflow.
 
 ```text
-Platform Detection
-        │
-        ▼
-Platform Description
-        │
-        ▼
-Compose Execution State
-        │
-        ▼
-Prerequisite Validation
-        │
-        ▼
-Validation Report
-        │
-        ▼
-Compose Execution State
-        │
-        ▼
-Package Planning
-        │
-        ▼
-Package Plan
-        │
-        ▼
-Package Application
-        │
-        ▼
-Package Result
-        │
-        ▼
-Configuration Deployment
-        │
-        ▼
-Configuration State
-        │
-        ▼
-Verification
-        │
-        ▼
-Verification Report
+Bootstrap
+
+↓
+
+Execution State
+
+↓
+
+Execution State
+
+↓
+
+Execution State
+
+↓
+
+Execution State
+
+↓
+
+Execution State
+
+↓
+
+Execution State
 ```
 
 Bootstrap composes Execution State between capability executions.

@@ -22,3 +22,13 @@ execution_state_compose() {
         '
 
 }
+
+execution_state_initialize() {
+
+    jq -n '
+        {
+            schema: "execution-state/v1"
+        }
+    '
+
+}
