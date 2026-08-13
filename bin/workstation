@@ -2,16 +2,17 @@
 
 set -euo pipefail
 
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 usage() {
 
-cat <<EOF
+cat <<'EOF'
 Workstation
 
 Usage:
 
   workstation <capability> <operation> [options]
+  workstation <orchestrator> [options]
 
 Capabilities
 
@@ -30,8 +31,16 @@ Capabilities
     remove
     status
 
+Orchestrators
+
   bootstrap
-    Initialize a workstation
+
+Global Options
+
+  -n, --dry-run
+  -v, --verbose
+  -p, --pretty
+      --json
 
 EOF
 
@@ -42,100 +51,96 @@ EOF
     exit 0
 }
 
-capability="$1"
-shift || true
+command="$1"
+shift
 
-operation="${1:-}"
-[[ $# -gt 0 ]] && shift
-
-case "${capability}" in
-
+case "${command}" in
   platform)
-
+    [[ $# -gt 0 ]] || {
+      printf "Missing platform operation.\n" >&2
+      exit 1
+    }
+    operation="${1:-}"
+    shift
     case "${operation}" in
-
       detect)
         exec "${ROOT}/capabilities/platform-detection/detect.sh" "$@"
         ;;
-        
-
       *)
-        echo "Unknown platform operation: ${operation}"
+        printf "Unknown platform operation: %s\n" "${operation}" >&2
         exit 1
         ;;
-
     esac
     ;;
 
   prerequisites)
-
+    [[ $# -gt 0 ]] || {
+      printf "Missing prerequisite operation.\n" >&2
+      exit 1
+    }
+    operation="${1:-}"
+    shift
     case "${operation}" in
-
       validate)
         exec "${ROOT}/capabilities/prerequisite-validation/validate.sh" "$@"
         ;;
-
       *)
-        echo "Unknown prerequisite operation: ${operation}"
+        echo "Unknown prerequisite operation: %s\n" "${operation}" >&2
         exit 1
         ;;
-
     esac
     ;;
 
   packages)
-
+    [[ $# -gt 0 ]] || {
+      printf "Missing package operation.\n" >&2
+      exit 1
+    }
+    operation="${1:-}"
+    shift
     case "${operation}" in
-
       plan)
         exec "${ROOT}/capabilities/package-management/plan.sh" "$@"
         ;;
-
       apply)
         exec "${ROOT}/capabilities/package-management/apply.sh" "$@"
         ;;
-
       *)
-        echo "Unknown package operation: ${operation}"
+        echo "Unknown package operation: %s\n" "${operation}" >&2
         exit 1
         ;;
-
     esac
     ;;
 
-
   config)
-
+    [[ $# -gt 0 ]] || {
+      printf "Missing configuration operation.\n" >&2
+      exit 1
+    }
+    operation="${1:-}"
+    shift
     case "${operation}" in
-
       deploy)
         exec "${ROOT}/capabilities/configuration-management/deploy.sh" "$@"
         ;;
-
       remove)
         exec "${ROOT}/capabilities/configuration-management/remove.sh" "$@"
         ;;
-
       status)
         exec "${ROOT}/capabilities/configuration-management/status.sh" "$@"
         ;;
-
       *)
-        echo "Unknown configuration operation: ${operation}"
+        echo "Unknown configuration operation: %s\n" "${operation}" >&2
         exit 1
         ;;
-
     esac
     ;;
-
+  
   bootstrap)
     exec "${ROOT}/orchestrators/bootstrap/bootstrap.sh" "$@"
     ;;
-
   *)
-
-    echo "Unknown capability: ${capability}"
+    printf "Unknown capability: %s\n" "${command}" >&2
     exit 1
     ;;
-
 esac

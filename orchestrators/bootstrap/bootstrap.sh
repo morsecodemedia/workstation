@@ -130,7 +130,7 @@ fi
 
 configuration_state="$(
     printf "%s\n" "${execution_state}" \
-        | "${ROOT}/bin/workstation" config deploy --dry-run
+        | "${ROOT}/bin/workstation" config deploy
 )"
 
 execution_state="$(

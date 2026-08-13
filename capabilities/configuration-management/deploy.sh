@@ -66,11 +66,16 @@ deploy_path() {
   if [[ -L "$target" ]]; then
 
     run ln -sfn "$source" "$target"
+    status="planned"
+    if ! is_dry_run; then
+      status="completed"
+    fi
+
     record_operation \
       "link" \
       "${source}" \
       "${target}" \
-      "planned"
+      "${status}"
 
   elif [[ -e "$target" ]]; then
 
@@ -83,11 +88,16 @@ deploy_path() {
   else
 
     run ln -sfn "$source" "$target"
+    status="planned"
+    if ! is_dry_run; then
+      status="completed"
+    fi
+
     record_operation \
       "link" \
       "${source}" \
       "${target}" \
-      "planned"
+      "${status}"
 
   fi
 }
@@ -96,12 +106,19 @@ if ! walk_configuration deploy_path; then
   :
 fi
 
+mode="apply"
+
+if is_dry_run; then
+    mode="dry-run"
+fi
+
 jq -n \
-  --argjson operations "${operations}" '
+    --arg mode "${mode}" \
+    --argjson operations "${operations}" '
 {
-  schema: "configuration-state/v1",
-  mode: "dry-run",
-  operations: $operations,
-  warnings: []
+    schema: "configuration-state/v1",
+    mode: $mode,
+    operations: $operations,
+    warnings: []
 }
 '
