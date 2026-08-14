@@ -61,7 +61,13 @@ deploy_path() {
   fi
 
   local source="${CONFIG_ROOT}/${path}"
-  local target="${HOME}/${path}"
+  local target
+
+  target="$(
+    configuration_target "${path}"
+  )"
+
+  run mkdir -p "$(dirname "${target}")"
 
   if [[ -L "$target" ]]; then
 

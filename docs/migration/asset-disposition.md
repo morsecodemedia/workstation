@@ -1,62 +1,80 @@
-# dotfiles-minimal/.config/
+# Asset Disposition
 
-| Asset     | Disposition            | Owner           | Notes                                                                                      |
-| --------- | ---------------------- | --------------- | ------------------------------------------------------------------------------------------ |
-| aerc      | 🗑️ Sunset             | —               | Email client is outside the scope of the Workstation product.                              |
-| ag        | 🔄 Replace             | Runtime         | Replace with **ripgrep** as the supported search utility.                                  |
-| aider     | ➡️ Move                | Engineering Lab | AI-assisted engineering belongs to Engineering Lab rather than Workstation.                |
-| asciinema | 🗑️ Sunset             | —               | Nice utility, but not part of the foundational workstation experience.                     |
-| curl      | ✅ Keep                 | Runtime         | Foundational runtime dependency.                                                           |
-| git       | ✅ Keep                 | Runtime         | Foundational runtime dependency.                                                           |
-| i3        | 🗑️ Sunset             | —               | Linux window manager; outside Version 1 scope.                                             |
-| kitty     | 📦 Keep                | Configuration   | Configuration-driven dependency. The package exists because the configuration exists.      |
-| lynx      | 🗑️ Sunset             | —               | Legacy browser; no longer part of the desired workstation experience.                      |
-| mpv       | ➡️ Move                | Engineering Lab | Media tooling supports Engineering workflows rather than the Workstation itself.           |
-| newsboat  | 🗑️ Sunset             | —               | Personal workflow tool rather than a workstation foundation.                               |
-| npm       | 🔄 Normalize           | Runtime         | Treat the dependency as **Node.js**, not npm. npm is provided by the Node.js installation. |
-| pulse     | 🗑️ Sunset (Version 1) | —               | Revisit only if Linux support later requires PulseAudio integration.                       |
-| slrn      | 🗑️ Sunset             | —               | Legacy workflow; outside Version 1 scope.                                                  |
-| tmux      | 📦 Keep                | Configuration   | Configuration-driven dependency.                                                           |
-| vim       | 📦 Keep                | Configuration   | Preserve configuration. Editor implementation may evolve (e.g. Neovim) independently.      |
+## Purpose
+
+The Asset Disposition defines the long-term ownership of every responsibility contained within the legacy dotfiles repository.
+
+It answers one question:
+
+> **What should become of this asset?**
+
+Asset Disposition is architectural.
+
+It does not track implementation progress.
+
+Implementation progress is tracked by the Migration Plan.
 
 ---
 
-# dotfiles-minimal/bin/
+# `.config/`
 
-| Command         | Recommendation            | Reason                                                                                 |
-| --------------- | ------------------------- | -------------------------------------------------------------------------------------- |
-| `ai`            | ➡️ Engineering Lab        | AI engineering workflow, not Workstation.                                              |
-| `audiobook`     | 🗑️ Sunset                | Personal workflow.                                                                     |
-| `bootstrap`     | ✅ Keep                    | Core Workstation capability.                                                           |
-| `colors`        | ✅ Keep                    | Shared CLI utility; likely Runtime.                                                    |
-| `ctx`           | 🤔 Keep (Engineering Lab) | Context management feels like Engineering Lab infrastructure.                          |
-| `doctor`        | ✅ Keep                    | Core Workstation capability.                                                           |
-| `engineer`      | ➡️ Engineering Lab        | Engineering capability.                                                                |
-| `extract`       | 🤔 Hold                   | I'd mark **Hold**, not Keep. We need to rediscover its responsibility before deciding. |
-| `fkill`         | 🤔 Hold                   | Same. Is it generic enough for Runtime or just a convenience alias?                    |
-| `flog`          | 🤔 Hold                   | Same. We should review implementation before deciding.                                 |
-| `lab`           | ✅ Keep                    | I actually think this becomes an MCU-level command eventually.                         |
-| `maildirect.sh` | 🗑️ Sunset                | Personal workflow.                                                                     |
-| `mpv-cmd`       | ➡️ Engineering Lab        | Supports Engineering media workflows.                                                  |
-| `mpv-pause`     | ➡️ Engineering Lab        | Same.                                                                                  |
-| `music`         | 🗑️ Sunset                | Personal workflow.                                                                     |
-| `n`             | 🤔 Hold                   | Need to inspect. The name alone isn't enough to decide.                                |
-| `news`          | 🗑️ Sunset                | Personal workflow.                                                                     |
-| `overdrive`     | 🗑️ Sunset                | Legacy/personal workflow.                                                              |
-| `plan`          | ✅ Keep                    | This has become a core engineering workflow.                                           |
-| `pulsefix`      | 🗑️ Sunset                | Version 1. Can be reintroduced if Linux audio becomes a supported concern.             |
-| `recentbooks`   | 🗑️ Sunset                | Personal workflow.                                                                     |
-| `review`        | ✅ Keep                    | Core engineering methodology.                                                          |
-| `shorten`       | 🤔 Keep                   | Utility. We need to rediscover its responsibility.                                     |
-| `swap`          | ✅ Keep                    | Small, focused utility. Good Runtime candidate.                                        |
-| `task`          | ✅ Keep                    | Fits the engineering workflow we've been building.                                     |
-| `tre`           | 🔄 Rewrite                | I think this becomes `workstation tree` or evolves into a richer inspection tool.      |
-| `yl`            | 🔄 Rewrite                | Preserve responsibility, redesign implementation once we understand it.                |
-| `yw`            | 🔄 Rewrite                | Same as `yl`.                                                                          |
+| Asset | Disposition | Owner | Notes |
+|-------|-------------|-------|-------|
+| aerc | 🗑️ Sunset | — | Email client is outside the scope of Workstation. |
+| ag | 🔄 Replace | Runtime | Replace with ripgrep. |
+| aider | ➡️ Move | Engineering Lab | AI engineering belongs in Engineering Lab. |
+| asciinema | 🗑️ Sunset | — | Outside Version 1 scope. |
+| curl | ✅ Keep | Runtime | Foundational runtime dependency. |
+| git | ✅ Keep | Runtime | Foundational runtime dependency. |
+| i3 | 🗑️ Sunset | — | Linux window manager outside Version 1 scope. |
+| kitty | 📦 Keep | Configuration | Configuration-driven dependency. |
+| lynx | 🗑️ Sunset | — | Legacy workflow. |
+| mpv | ➡️ Move | Engineering Lab | Engineering media tooling. |
+| newsboat | 🗑️ Sunset | — | Personal workflow. |
+| npm | 🔄 Normalize | Runtime | Node.js owns npm. |
+| pulse | 🗑️ Sunset (V1) | — | Revisit if Linux support expands. |
+| slrn | 🗑️ Sunset | — | Legacy workflow. |
+| tmux | 📦 Keep | Configuration | Configuration-driven dependency. |
+| vim | 📦 Keep | Configuration | Preserve configuration independently of editor implementation. |
 
 ---
 
-# dotfiles-minimal/lib/
+# `bin/`
+
+| Command | Disposition | Owner | Notes |
+|---------|-------------|-------|-------|
+| ai | ➡️ Move | Engineering Lab | Engineering workflow. |
+| audiobook | 🗑️ Sunset | — | Personal workflow. |
+| bootstrap | ✅ Keep | Workstation | Bootstrap orchestrator. |
+| colors | ✅ Keep | Runtime | Shared CLI utility. |
+| ctx | ➡️ Move | Engineering Lab | Context management. |
+| doctor | ✅ Keep | Workstation | Diagnostic capability. |
+| engineer | ➡️ Move | Engineering Lab | Engineering capability. |
+| extract | 🤔 Hold | TBD | Re-evaluate responsibility. |
+| fkill | 🤔 Hold | TBD | Review before migration. |
+| flog | 🤔 Hold | TBD | Review before migration. |
+| lab | ✅ Keep | MCU | Candidate MCU-level command. |
+| maildirect.sh | 🗑️ Sunset | — | Personal workflow. |
+| mpv-cmd | ➡️ Move | Engineering Lab | Media workflow. |
+| mpv-pause | ➡️ Move | Engineering Lab | Media workflow. |
+| music | 🗑️ Sunset | — | Personal workflow. |
+| n | 🤔 Hold | TBD | Needs review. |
+| news | 🗑️ Sunset | — | Personal workflow. |
+| overdrive | 🗑️ Sunset | — | Legacy workflow. |
+| plan | ✅ Keep | Engineering Lab | Core engineering workflow. |
+| pulsefix | 🗑️ Sunset | — | Linux-specific. |
+| recentbooks | 🗑️ Sunset | — | Personal workflow. |
+| review | ✅ Keep | Engineering Lab | Core engineering workflow. |
+| shorten | 🤔 Hold | TBD | Utility review required. |
+| swap | ✅ Keep | Runtime | Small focused runtime utility. |
+| task | ✅ Keep | Engineering Lab | Engineering workflow. |
+| tre | 🔄 Rewrite | Runtime | Evolve into richer inspection tooling. |
+| yl | 🔄 Rewrite | TBD | Preserve responsibility. |
+| yw | 🔄 Rewrite | TBD | Preserve responsibility. |
+
+---
+
+# `lib/`
 
 | Asset            | Disposition | Notes                                                                                                                       |
 | ---------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -66,7 +84,7 @@
 
 ---
 
-# dotfiles-minimal/knowledge/
+# `knowledge/`
 
 | Asset                    | Disposition  | Owner       | Notes                                                                                                   |
 | ------------------------ | ------------ | ----------- | ------------------------------------------------------------------------------------------------------- |
@@ -75,7 +93,7 @@
 
 ---
 
-# dotfiles-minimal/.functions/
+# `.functions/`
 
 | Function         | Responsibility                                                  | Disposition   | Owner               | Notes                                                                                                                            |
 | ---------------- | --------------------------------------------------------------- | ------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -99,3 +117,10 @@ The review of legacy shell functions identified a potential MCU product that has
 Responsibilities related to task management, workspace activation, and cross-domain productivity do not fit cleanly within Workstation or Engineering Lab.
 
 These responsibilities remain on hold pending definition of a future Productivity-oriented repository.
+
+# Migration Principles
+
+- Responsibilities outlive implementations.
+- Every retained responsibility receives an MCU owner.
+- Every migrated responsibility becomes declarative where practical.
+- Legacy implementations are archived only after Workstation becomes the authoritative implementation.

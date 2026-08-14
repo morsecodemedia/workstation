@@ -2,101 +2,93 @@
 
 ## Purpose
 
-The Migration Plan translates the Asset Disposition Review into an executable implementation plan.
+The Migration Plan translates the Asset Disposition into executable implementation work.
 
-Asset Disposition records migration decisions.
+Asset Disposition defines ownership.
 
-The Migration Plan tracks implementation work.
+Migration Plan defines execution.
 
-Implementation proceeds in ownership order rather than legacy repository order.
+---
+
+# Current Status
+
+## Platform
+
+- [x] Runtime SDK
+- [x] Capability Framework
+- [x] Execution State
+- [x] Bootstrap Orchestrator
+- [x] Machine-first CLI
 
 ---
 
 # Runtime
 
-## Foundation
+## Runtime Foundation
 
-- [ ] Integrate zoxide for intelligent directory navigation.
-- [ ] Implement Node runtime activation module.
-- [ ] Modernize interactive directory navigation.
-- [ ] Modernize interactive file editing.
-- [ ] Modernize interactive command history.
-- [ ] Modernize PATH initialization.
-- [ ] Modernize Runtime knowledge services.
-- [ ] Modernize Runtime matching services.
-- [ ] Modernize Workstation runtime library.
+- [x] Runtime SDK
+- [x] Shell initialization modernization
+- [x] CLI modernization
+- [ ] Renderers
+- [ ] Verification
 
 ---
 
 ## Runtime Dependencies
 
-- [ ] Git
-- [ ] curl
-- [ ] Node.js
-- [ ] ripgrep (replace ag)
+- [x] Git
+- [x] curl
+- [x] Node.js
+- [x] ripgrep
 
 ---
 
 # Configuration
 
-## Configuration Migration
+## Git
 
-- [ ] Git configuration
-- [ ] Kitty configuration
-- [ ] tmux configuration
-- [ ] Vim configuration
+- [x] .gitconfig
+- [x] .gitignore_global
 
----
+## Kitty
 
-## Shell Configuration
+- [x] kitty.conf
+- [x] themes
 
-- [ ] Environment configuration
-- [ ] XDG configuration
-- [ ] Shell aliases
-- [ ] Prompt configuration
-- [ ] Terminal configuration
+## tmux
 
----
+- [x] tmux.conf
 
-# Workstation
+## Vim
 
-## Core Capabilities
+- [ ] vimrc
+- [ ] plugins
 
-- [x] Configuration Management
-- [x] Platform Detection
-- [x] Prerequisite Validation
-- [ ] Package Management
-- [ ] Bootstrap
-- [ ] Verification
+## Shell
 
----
-
-## Runtime
-
-- [ ] Runtime modernization
-- [ ] Shell initialization modernization
-- [ ] CLI modernization
+- [ ] aliases
+- [ ] prompt
+- [ ] environment
+- [ ] PATH
+- [ ] XDG
 
 ---
 
 # Engineering Lab
 
-## Engineering Capabilities
+## Engineering Commands
 
-- [ ] AI engineering assistant
-- [ ] Git synchronization
-- [ ] Engineering review
-- [ ] Project root discovery
-- [ ] Context management
-- [ ] Planning
-- [ ] Task management
-- [ ] Review workflows
+- [ ] ai
+- [ ] engineer
+- [ ] ctx
+- [ ] plan
+- [ ] review
+- [ ] task
+- [ ] git synchronization
 
 ---
 
 # Image Lab
-
-## Image Capabilities
 
 - [ ] Image inspection
 - [ ] Image metadata
@@ -106,12 +98,6 @@ Implementation proceeds in ownership order rather than legacy repository order.
 
 # Productivity (Pending)
 
-The Asset Disposition Review identified responsibilities that transcend Workstation and Engineering Lab.
-
-These responsibilities remain on hold until the Productivity product has been formally defined.
-
-Potential responsibilities include:
-
 - [ ] Workspace activation
 - [ ] Cross-project task management
 - [ ] Personal work management
@@ -120,21 +106,51 @@ Potential responsibilities include:
 
 # Isle of Misfit Toys
 
-Utilities intentionally preserved for historical or educational value.
-
-These utilities are intentionally excluded from MCU product repositories.
-
 - [ ] rr
 
 ---
 
-# Migration Complete
+# Workstation Version 1 Exit Criteria
 
-Migration is considered complete when:
+A Version 1 release is complete when:
 
-- Every retained responsibility has an MCU owner.
-- Every retained responsibility has an implementation backlog item.
-- Every legacy responsibility has been migrated, modernized, rewritten, moved, or intentionally retired.
-- The legacy repository is no longer required as an implementation reference.
+- [x] Runtime SDK exists.
+- [x] Bootstrap orchestrates the workstation.
+- [x] Package Management performs real execution.
+- [x] Configuration Management performs real deployment.
+- [ ] Verification capability is implemented.
+- [ ] Every retained configuration has been migrated from the legacy repository.
+- [ ] Daily development is performed exclusively using Workstation.
+- [ ] The legacy dotfiles repository can be archived.
 
-At that point, the MCU becomes the authoritative source for future development.
+---
+
+# Migration Workflow
+
+Every migration follows the same workflow.
+
+```text
+Legacy Configuration
+
+↓
+
+Move to Workstation
+
+↓
+
+Bootstrap
+
+↓
+
+Daily Use
+
+↓
+
+Delete from Legacy Repository
+
+↓
+
+Commit
+```
+
+Migration is complete when the legacy repository is no longer required for day-to-day development.
