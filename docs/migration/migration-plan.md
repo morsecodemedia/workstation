@@ -61,8 +61,9 @@ Migration Plan defines execution.
 
 ## Vim
 
-- [ ] vimrc
+- [x] vimrc
 - [ ] plugins
+- [ ] Migrate Vim plugin manager installation / Implement Vim package provider
 
 ## Shell
 

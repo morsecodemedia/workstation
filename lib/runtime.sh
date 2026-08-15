@@ -156,8 +156,14 @@ source "${RUNTIME_DIR}/runtime/navigation.sh"
 # shellcheck source=runtime/catalog.sh
 source "${RUNTIME_DIR}/runtime/catalog.sh"
 
+# shellcheck source=runtime/path.sh
+source "${RUNTIME_DIR}/runtime/path.sh"
+
 # shellcheck source=runtime/configuration.sh
 source "${RUNTIME_DIR}/runtime/configuration.sh"
+
+# shellcheck source=runtime/environment.sh
+source "${RUNTIME_DIR}/runtime/environment.sh"
 
 ################################################################################
 # Orchestration
