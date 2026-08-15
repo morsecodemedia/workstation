@@ -67,11 +67,15 @@ Migration Plan defines execution.
 
 ## Shell
 
-- [ ] aliases
+- [x] runtime aliases
+- [ ] engineering lab aliases
+- [ ] productivity aliases
+- [ ] personal aliases
 - [ ] prompt
 - [ ] environment
 - [ ] PATH
-- [ ] XDG
+- [x] XDG
+- [x] history
 
 ---
 

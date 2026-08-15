@@ -6,15 +6,29 @@
 
 runtime_environment_initialize() {
 
+    info "HOMEBREW"
     runtime_homebrew_initialize
 
+    info "XDG"
     runtime_xdg_initialize
 
+    info "ENVIRONMENT"
     runtime_environment_variables_initialize
 
+    info "PATH"
     runtime_environment_path_initialize
 
+    info "NODE"
+    runtime_node_initialize
+
+    info "HISTORY"
+    runtime_history_initialize
+
+    info "SHELL"
     runtime_shell_initialize
+
+    info "RUNTIME ALIASES"
+    runtime_aliases_initialize
 
 }
 

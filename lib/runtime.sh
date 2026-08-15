@@ -165,6 +165,21 @@ source "${RUNTIME_DIR}/runtime/configuration.sh"
 # shellcheck source=runtime/environment.sh
 source "${RUNTIME_DIR}/runtime/environment.sh"
 
+# shellcheck source=runtime/xdg.sh
+source "${RUNTIME_DIR}/runtime/xdg.sh"
+
+# shellcheck source=runtime/node.sh
+source "${RUNTIME_DIR}/runtime/node.sh"
+
+# shellcheck source=runtime/history.sh
+source "${RUNTIME_DIR}/runtime/history.sh"
+
+# shellcheck source=runtime/shell.sh
+source "${RUNTIME_DIR}/runtime/shell.sh"
+
+# shellcheck source=runtime/aliases.sh
+source "${RUNTIME_DIR}/runtime/aliases.sh"
+
 ################################################################################
 # Orchestration
 ################################################################################
