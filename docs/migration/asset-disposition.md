@@ -124,3 +124,8 @@ These responsibilities remain on hold pending definition of a future Productivit
 - Every retained responsibility receives an MCU owner.
 - Every migrated responsibility becomes declarative where practical.
 - Legacy implementations are archived only after Workstation becomes the authoritative implementation.
+
+## Search
+| Responsibility | Disposition | Owner   | Notes                                                                                         |
+| -------------- | ----------- | ------- | --------------------------------------------------------------------------------------------- |
+| Search & FZF   | 🔄 Rewrite  | Runtime | Replace ag-based implementation with Runtime search primitives built on ripgrep, fd, and fzf. |

@@ -16,13 +16,13 @@ shopt -s dotglob
 # Repository
 ################################################################################
 
-SCRIPT_DIR="$(
-    cd "$(dirname "${BASH_SOURCE[1]}")" >/dev/null 2>&1
+LIB_DIR="$(
+    cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
     pwd
 )"
 
 REPO_ROOT="$(
-    cd "${SCRIPT_DIR}/../.." >/dev/null 2>&1
+    cd "${LIB_DIR}/.." >/dev/null 2>&1
     pwd
 )"
 
@@ -133,18 +133,12 @@ run() {
 }
 
 ################################################################################
-# Runtime Primitives
+# Runtime Loader
 ################################################################################
 
 # shellcheck source=runtime-loader.sh
-source "${SCRIPT_DIR}/runtime-loader.sh"
+source "${LIB_DIR}/runtime-loader.sh"
 
-################################################################################
-# Orchestration
-################################################################################
-
-# shellcheck source=orchestration.sh
-source "${RUNTIME_DIR}/orchestration.sh"
 
 ################################################################################
 # Configuration Traversal

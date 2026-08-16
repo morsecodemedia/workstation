@@ -43,6 +43,15 @@ Migration Plan defines execution.
 
 ---
 
+## Runtime Search
+
+- [ ] Implement Runtime FZF module
+- [ ] Integrate ripgrep backend
+- [ ] Integrate fd backend
+- [ ] Build Runtime Search service
+
+---
+
 # Configuration
 
 ## Git

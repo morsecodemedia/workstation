@@ -14,7 +14,12 @@ runtime_node_initialize() {
     fi
 
     if command -v nvm >/dev/null 2>&1; then
-        nvm use default >/dev/null
+
+        if ! nvm use default >/dev/null 2>&1; then
+            runtime_warn \
+                "Unable to activate the default Node.js runtime."
+        fi
+
     fi
 
     if [[ -s "${NVM_DIR}/bash_completion" ]]; then
