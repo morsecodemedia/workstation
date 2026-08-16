@@ -136,49 +136,8 @@ run() {
 # Runtime Primitives
 ################################################################################
 
-RUNTIME_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# shellcheck source=runtime/editor.sh
-source "${RUNTIME_DIR}/runtime/editor.sh"
-
-# shellcheck source=runtime/preview.sh
-source "${RUNTIME_DIR}/runtime/preview.sh"
-
-# shellcheck source=runtime/finder.sh
-source "${RUNTIME_DIR}/runtime/finder.sh"
-
-# shellcheck source=runtime/selector.sh
-source "${RUNTIME_DIR}/runtime/selector.sh"
-
-# shellcheck source=runtime/navigation.sh
-source "${RUNTIME_DIR}/runtime/navigation.sh"
-
-# shellcheck source=runtime/catalog.sh
-source "${RUNTIME_DIR}/runtime/catalog.sh"
-
-# shellcheck source=runtime/path.sh
-source "${RUNTIME_DIR}/runtime/path.sh"
-
-# shellcheck source=runtime/configuration.sh
-source "${RUNTIME_DIR}/runtime/configuration.sh"
-
-# shellcheck source=runtime/environment.sh
-source "${RUNTIME_DIR}/runtime/environment.sh"
-
-# shellcheck source=runtime/xdg.sh
-source "${RUNTIME_DIR}/runtime/xdg.sh"
-
-# shellcheck source=runtime/node.sh
-source "${RUNTIME_DIR}/runtime/node.sh"
-
-# shellcheck source=runtime/history.sh
-source "${RUNTIME_DIR}/runtime/history.sh"
-
-# shellcheck source=runtime/shell.sh
-source "${RUNTIME_DIR}/runtime/shell.sh"
-
-# shellcheck source=runtime/aliases.sh
-source "${RUNTIME_DIR}/runtime/aliases.sh"
+# shellcheck source=runtime-loader.sh
+source "${SCRIPT_DIR}/runtime-loader.sh"
 
 ################################################################################
 # Orchestration

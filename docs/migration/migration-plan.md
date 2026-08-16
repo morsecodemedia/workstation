@@ -71,7 +71,7 @@ Migration Plan defines execution.
 - [ ] engineering lab aliases
 - [ ] productivity aliases
 - [ ] personal aliases
-- [ ] prompt
+- [x] prompt
 - [ ] environment
 - [ ] PATH
 - [x] XDG

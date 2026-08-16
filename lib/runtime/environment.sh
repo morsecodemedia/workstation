@@ -6,29 +6,37 @@
 
 runtime_environment_initialize() {
 
-    info "HOMEBREW"
+    #
+    # Platform
+    #
     runtime_homebrew_initialize
 
-    info "XDG"
-    runtime_xdg_initialize
-
-    info "ENVIRONMENT"
+    #
+    # Environment
+    #
     runtime_environment_variables_initialize
 
-    info "PATH"
-    runtime_environment_path_initialize
+    runtime_xdg_initialize
 
-    info "NODE"
+    #
+    # Runtime
+    #
+    runtime_path_initialize
+
     runtime_node_initialize
 
-    info "HISTORY"
+    #
+    # Interactive Shell
+    #
     runtime_history_initialize
 
-    info "SHELL"
     runtime_shell_initialize
 
-    info "RUNTIME ALIASES"
     runtime_aliases_initialize
+
+    runtime_terminal_initialize
+
+    runtime_prompt_initialize
 
 }
 
@@ -44,15 +52,6 @@ runtime_homebrew_initialize() {
 
 }
 
-################################################################################
-# PATH
-################################################################################
-
-runtime_environment_path_initialize() {
-
-    runtime_path_initialize
-
-}
 
 runtime_environment_variables_initialize() {
 
