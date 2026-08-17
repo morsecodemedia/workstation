@@ -10,6 +10,7 @@ runtime_node_initialize() {
 
     if [[ -s "${NVM_DIR}/nvm.sh" ]]; then
         # shellcheck disable=SC1090
+        # shellcheck disable=SC1091
         . "${NVM_DIR}/nvm.sh"
     fi
 
@@ -24,6 +25,7 @@ runtime_node_initialize() {
 
     if [[ -s "${NVM_DIR}/bash_completion" ]]; then
         # shellcheck disable=SC1090
+        # shellcheck disable=SC1091
         . "${NVM_DIR}/bash_completion"
     fi
 

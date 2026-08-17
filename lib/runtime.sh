@@ -17,15 +17,16 @@ shopt -s dotglob
 ################################################################################
 
 LIB_DIR="$(
-    cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1
+    cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit
     pwd
 )"
 
 REPO_ROOT="$(
-    cd "${LIB_DIR}/.." >/dev/null 2>&1
+    cd "${LIB_DIR}/.." >/dev/null 2>&1 || exit
     pwd
 )"
 
+# shellcheck disable=SC1091
 CONFIG_ROOT="${REPO_ROOT}/config"
 
 ################################################################################
@@ -137,6 +138,7 @@ run() {
 ################################################################################
 
 # shellcheck source=runtime-loader.sh
+# shellcheck disable=SC1091
 source "${LIB_DIR}/runtime-loader.sh"
 
 

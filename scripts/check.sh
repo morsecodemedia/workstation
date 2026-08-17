@@ -9,4 +9,6 @@ ROOT="$(
 
 "${ROOT}/scripts/chmod.sh"
 
-# "${ROOT}/scripts/lint.sh"
+"${ROOT}/scripts/lint.sh"
+
+"${ROOT}/scripts/verify-environment.sh"

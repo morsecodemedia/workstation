@@ -1,29 +1,24 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 ################################################################################
-# Interactive Runtime Bootstrap
+# Repository
 ################################################################################
 
-SCRIPT_DIR="$(
-    cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit
+ROOT="$(
+    cd "$(dirname "${BASH_SOURCE[0]}")/.." >/dev/null 2>&1
     pwd
 )"
 
 ################################################################################
-# Runtime SDK
+# Runtime
 ################################################################################
 
-# shellcheck source=runtime-loader.sh
-# shellcheck disable=SC1091
-source "${SCRIPT_DIR}/runtime-loader.sh"
+"${ROOT}/scripts/verify-runtime.sh"
 
 ################################################################################
 # Interactive Runtime
 ################################################################################
 
-if ! runtime_environment_initialize; then
-
-    runtime_warn \
-        "Interactive Runtime initialization failed. Continuing with shell."
-
-fi
+"${ROOT}/scripts/verify-interactive.sh"

@@ -11,7 +11,19 @@
 #   Version 1 support policy.
 #
 
-source "$(dirname "${BASH_SOURCE[0]}")/../../lib/runtime.sh"
+SCRIPT_DIR="$(
+    cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit
+    pwd
+)"
+
+ROOT="$(
+    cd "${SCRIPT_DIR}/../.." >/dev/null 2>&1 || exit
+    pwd
+)"
+
+# shellcheck source=../../lib/runtime.sh
+# shellcheck disable=SC1091
+source "${ROOT}/lib/runtime.sh"
 
 parse_args "$@"
 

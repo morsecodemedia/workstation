@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 runtime_shell_initialize() {
 
     GPG_TTY="$(tty)"

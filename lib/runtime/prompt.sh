@@ -6,11 +6,9 @@
 
 runtime_prompt_initialize() {
 
-    local user
     local hostname
     local shell_name
 
-    user="$(id -un)"
     hostname="$(uname -n)"
     shell_name="$(ps -cp "$$" -o command="" 2>/dev/null)"
 

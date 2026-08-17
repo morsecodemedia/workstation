@@ -20,6 +20,7 @@ runtime_xdg_initialize() {
 
   export DOTREMINDERS="${XDG_CONFIG_HOME}/remind/reminders"
 
+  # shellcheck disable=SC2016
   export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 
 }
