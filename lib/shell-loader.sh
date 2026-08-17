@@ -1,31 +1,31 @@
 #!/usr/bin/env bash
 
 ################################################################################
-# Repository
+# Shell Loader
 ################################################################################
 
-SCRIPT_DIR="$(
+LIB_DIR="$(
     cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit
     pwd
 )"
 
-ROOT="$(
-    cd "${SCRIPT_DIR}/../.." >/dev/null 2>&1 || exit
-    pwd
-)"
-
 ################################################################################
-# Runtime
+# Shell Adapters
 ################################################################################
 
-# shellcheck source=../../lib/runtime-interactive.sh
+# shellcheck source=shell/navigation.sh
 # shellcheck disable=SC1091
-source "${ROOT}/lib/runtime-interactive.sh"
+source "${LIB_DIR}/shell/navigation.sh"
 
-################################################################################
-# Shell
-################################################################################
-
-# shellcheck source=../../lib/shell-loader.sh
+# shellcheck source=shell/editor.sh
 # shellcheck disable=SC1091
-source "${ROOT}/lib/shell-loader.sh"
+source "${LIB_DIR}/shell/editor.sh"
+
+# shellcheck source=shell/history.sh
+# shellcheck disable=SC1091
+source "${LIB_DIR}/shell/history.sh"
+
+# Future:
+#
+# shell/search.sh
+# shell/aliases.sh

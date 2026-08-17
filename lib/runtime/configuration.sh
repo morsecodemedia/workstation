@@ -30,6 +30,18 @@ configuration_target() {
             printf "%s\n" "${HOME}/.profile"
             ;;
 
+        curl/*)
+            printf "%s\n" "${HOME}/.config/${path}"
+            ;;
+
+        asciinema/*)
+            printf "%s\n" "${HOME}/.config/${path}"
+            ;;
+
+        mpv/*)
+            printf "%s\n" "${HOME}/.config/${path}"
+            ;;
+
         *)
             printf "%s\n" "${HOME}/${path}"
             ;;

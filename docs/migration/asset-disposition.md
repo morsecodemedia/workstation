@@ -45,15 +45,15 @@ Implementation progress is tracked by the Migration Plan.
 |---------|-------------|-------|-------|
 | ai | ➡️ Move | Engineering Lab | Engineering workflow. |
 | audiobook | 🗑️ Sunset | — | Personal workflow. |
-| bootstrap | ✅ Keep | Workstation | Bootstrap orchestrator. |
+| bootstrap | ✅ Keep | Workstation | Bootstrap capability. |
 | colors | ✅ Keep | Runtime | Shared CLI utility. |
 | ctx | ➡️ Move | Engineering Lab | Context management. |
-| doctor | ✅ Keep | Workstation | Diagnostic capability. |
+| doctor | ✅ Keep | Workstation | verification capability. |
 | engineer | ➡️ Move | Engineering Lab | Engineering capability. |
 | extract | 🤔 Hold | TBD | Re-evaluate responsibility. |
 | fkill | 🤔 Hold | TBD | Review before migration. |
 | flog | 🤔 Hold | TBD | Review before migration. |
-| lab | ✅ Keep | MCU | Candidate MCU-level command. |
+| lab | ✅ Keep | engineering lab | Candidate MCU-level command. |
 | maildirect.sh | 🗑️ Sunset | — | Personal workflow. |
 | mpv-cmd | ➡️ Move | Engineering Lab | Media workflow. |
 | mpv-pause | ➡️ Move | Engineering Lab | Media workflow. |

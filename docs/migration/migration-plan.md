@@ -27,19 +27,23 @@ Migration Plan defines execution.
 ## Runtime Foundation
 
 - [x] Runtime SDK
+- [x] Runtime Loader
+- [x] Interactive Runtime Bootstrap
+- [x] Shell Adapter Layer
 - [x] Shell initialization modernization
 - [x] CLI modernization
 - [ ] Renderers
-- [ ] Verification
+- [x] Verification Framework
 
 ---
 
 ## Runtime Dependencies
 
+- [x] Runtime Package Catalog
 - [x] Git
 - [x] curl
 - [x] Node.js
-- [x] ripgrep
+- [ ] Runtime package verification
 
 ---
 
@@ -56,8 +60,8 @@ Migration Plan defines execution.
 
 ## Git
 
-- [x] .gitconfig
-- [x] .gitignore_global
+- [x] config
+- [x] ignore
 
 ## Kitty
 
@@ -74,17 +78,29 @@ Migration Plan defines execution.
 - [ ] plugins
 - [ ] Migrate Vim plugin manager installation / Implement Vim package provider
 
+## Applications
+
+- [x] curl
+- [x] asciinema
+- [x] mpv
+
 ## Shell
 
-- [x] runtime aliases
-- [ ] engineering lab aliases
-- [ ] productivity aliases
-- [ ] personal aliases
-- [x] prompt
-- [ ] environment
-- [ ] PATH
+- [x] Runtime Environment
+- [x] PATH
 - [x] XDG
-- [x] history
+- [x] History
+- [x] Prompt
+- [x] Terminal
+- [x] Runtime aliases
+- [x] Shell adapter layer
+- [x] Navigation adapters
+- [x] Editor adapters
+- [x] History adapters
+
+- [ ] Engineering Lab aliases
+- [ ] Productivity aliases
+- [ ] Personal aliases
 
 ---
 
@@ -124,6 +140,32 @@ Migration Plan defines execution.
 
 ---
 
+# Release Readiness
+
+## Runtime
+
+- [x] Runtime SDK
+- [x] Runtime Loader
+- [x] Interactive Runtime Bootstrap
+- [x] Shell Adapter Layer
+
+## Verification
+
+- [x] Runtime Verification
+- [x] Interactive Verification
+- [ ] Bootstrap Verification
+- [ ] Configuration Verification
+
+## Configuration Contract
+
+- [x] Git
+- [x] Kitty
+- [x] tmux
+- [x] Vim
+- [x] curl
+- [x] asciinema
+- [x] mpv
+
 # Workstation Version 1 Exit Criteria
 
 A Version 1 release is complete when:
@@ -132,7 +174,8 @@ A Version 1 release is complete when:
 - [x] Bootstrap orchestrates the workstation.
 - [x] Package Management performs real execution.
 - [x] Configuration Management performs real deployment.
-- [ ] Verification capability is implemented.
+- [x] Verification framework is implemented.
+- [ ] Interactive shell bootstraps exclusively through Workstation.
 - [ ] Every retained configuration has been migrated from the legacy repository.
 - [ ] Daily development is performed exclusively using Workstation.
 - [ ] The legacy dotfiles repository can be archived.
