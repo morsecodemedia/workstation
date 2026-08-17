@@ -25,7 +25,11 @@ source "${ROOT}/scripts/verify-common.sh"
 
 # shellcheck source=../lib/runtime-interactive.sh
 # shellcheck disable=SC1091
-source "${ROOT}/lib/runtime-interactive.sh"
+# source "${ROOT}/lib/runtime-interactive.sh"
+
+# shellcheck source=../shell/bash/init.sh
+# shellcheck disable=SC1091
+source "${ROOT}/shell/bash/init.sh"
 
 ################################################################################
 # Interactive Shell
