@@ -35,3 +35,17 @@ fda() {
     navigation_cd "${directory}"
 
 }
+
+################################################################################
+# Shell Adapter
+#
+# Directory Navigation
+################################################################################
+
+cd() {
+
+    builtin cd "$@" || return
+
+    runtime_node_project_activate
+
+}
