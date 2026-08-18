@@ -25,6 +25,10 @@ source "${LIB_DIR}/shell/editor.sh"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/shell/history.sh"
 
+# shellcheck source=shell/zoxide.sh
+# shellcheck disable=SC1091
+source "${LIB_DIR}/shell/zoxide.sh"
+
 # Future:
 #
 # shell/search.sh

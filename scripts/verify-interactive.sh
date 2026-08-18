@@ -113,6 +113,19 @@ verify_interactive_prompt() {
 }
 
 ################################################################################
+# Interactive Integrations
+################################################################################
+
+verify_interactive_integrations() {
+
+    section "Interactive Integrations"
+
+    check_function z
+    check_function zi
+
+}
+
+################################################################################
 # Main
 ################################################################################
 
@@ -130,6 +143,8 @@ verify_interactive_editing
 verify_interactive_history
 
 verify_interactive_prompt
+
+verify_interactive_integrations
 
 summary
 
