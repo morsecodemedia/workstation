@@ -29,3 +29,14 @@ source "${ROOT}/lib/runtime-interactive.sh"
 # shellcheck source=../../lib/shell-loader.sh
 # shellcheck disable=SC1091
 source "${ROOT}/lib/shell-loader.sh"
+
+################################################################################
+# Local Extensions
+################################################################################
+
+if [[ -r "${HOME}/.profile_local" ]]; then
+
+    # shellcheck disable=SC1090
+    source "${HOME}/.profile_local"
+
+fi
