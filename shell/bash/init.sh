@@ -37,6 +37,7 @@ source "${ROOT}/lib/shell-loader.sh"
 if [[ -r "${HOME}/.profile_local" ]]; then
 
     # shellcheck disable=SC1090
+    # shellcheck disable=SC1091
     source "${HOME}/.profile_local"
 
 fi
