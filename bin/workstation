@@ -66,6 +66,9 @@ case "${command}" in
       detect)
         exec "${ROOT}/capabilities/platform-detection/detect.sh" "$@"
         ;;
+      register)
+        exec "${ROOT}/capabilities/platform-registration/install.sh" "$@"
+        ;;
       *)
         printf "Unknown platform operation: %s\n" "${operation}" >&2
         exit 1

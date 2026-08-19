@@ -78,11 +78,33 @@ execution_state="$(
 ################################################################################
 # Stage 3
 #
+# Platform Registration
+################################################################################
+
+if is_pretty; then
+  info "Stage 3: Platform Registration"
+fi
+
+installation_state="$(
+    printf "%s\n" "${execution_state}" \
+        | "${ROOT}/bin/workstation" platform register
+)"
+
+execution_state="$(
+    execution_state_compose \
+        "${execution_state}" \
+        installation \
+        "${installation_state}"
+)"
+
+################################################################################
+# Stage 4
+#
 # Package Planning
 ################################################################################
 
 if is_pretty; then
-  info "Stage 3: Package Planning"
+  info "Stage 4: Package Planning"
 fi
 
 package_plan="$(
@@ -98,13 +120,13 @@ execution_state="$(
 )"
 
 ################################################################################
-# Stage 4
+# Stage 5
 #
 # Package Application
 ################################################################################
 
 if is_pretty; then
-  info "Stage 4: Package Application"
+  info "Stage 5: Package Application"
 fi
 
 package_result="$(
@@ -120,7 +142,7 @@ execution_state="$(
 )"
 
 ################################################################################
-# Stage 5
+# Stage 6
 #
 # Configuration Deployment
 ################################################################################
@@ -146,7 +168,7 @@ execution_state="$(
 ################################################################################
 
 if is_pretty; then
-  info "Stage 6: Verification"
+  info "Stage 7: Verification"
 fi
 
 printf "%s\n" "${execution_state}"

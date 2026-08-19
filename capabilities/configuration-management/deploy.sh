@@ -79,6 +79,11 @@ deploy_path() {
     configuration_target "${path}"
   )"
 
+  #
+  # This path is intentionally not deployed by Configuration Management.
+  #
+  [[ -n "${target}" ]] || return
+
   run mkdir -p "$(dirname "${target}")"
 
   if [[ -L "$target" ]]; then

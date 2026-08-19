@@ -67,8 +67,8 @@ Additional operations may be introduced without changing the artifact contract.
   "operations": [
     {
       "action": "link",
-      "source": "/Users/brandonmorse/Sites/personal/workstation/config/.gitconfig",
-      "target": "/Users/brandonmorse/.gitconfig",
+      "source": "~/Sites/personal/workstation/config/.gitconfig",
+      "target": "~/.gitconfig",
       "status": "planned"
     }
   ],

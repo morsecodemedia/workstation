@@ -34,6 +34,18 @@ source "${ROOT}/lib/runtime-interactive.sh"
 RUNTIME_PACKAGES_MISSING=()
 
 ################################################################################
+# Installation Path
+################################################################################
+
+verify_installation() {
+
+    section "Installation"
+
+    check_variable WORKSTATION_ROOT
+
+}
+
+################################################################################
 # Runtime Environment
 ################################################################################
 
@@ -164,6 +176,8 @@ printf "Runtime Verification\n"
 printf "====================\n"
 
 verify_runtime_environment
+
+verify_installation
 
 verify_runtime_path
 

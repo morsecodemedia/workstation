@@ -26,6 +26,17 @@ configuration_target() {
             printf "%s\n" "${HOME}/.config/${path}"
             ;;
 
+        ########################################################################
+        # Generated Artifacts
+        #
+        # installation.env.in is consumed by the Platform Registration
+        # capability and generates ~/.config/workstation/installation.env.
+        # It is intentionally excluded from Configuration Management.
+        ########################################################################
+        workstation/installation.env.in)
+            printf "%s\n" ""
+            ;;
+
         profile)
             printf "%s\n" "${HOME}/.profile"
             ;;

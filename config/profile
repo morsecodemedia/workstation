@@ -4,9 +4,19 @@
 # Workstation
 ################################################################################
 
-if [[ -r "${HOME}/Sites/personal/workstation/shell/bash/init.sh" ]]; then
+INSTALLATION_ENV="${HOME}/.config/workstation/installation.env"
+
+if [[ -r "${INSTALLATION_ENV}" ]]; then
 
     # shellcheck disable=SC1090
-    source "${HOME}/Sites/personal/workstation/shell/bash/init.sh"
+    source "${INSTALLATION_ENV}"
+
+fi
+
+if [[ -n "${WORKSTATION_ROOT:-}" ]] \
+    && [[ -r "${WORKSTATION_ROOT}/shell/bash/init.sh" ]]; then
+
+    # shellcheck disable=SC1090
+    source "${WORKSTATION_ROOT}/shell/bash/init.sh"
 
 fi
