@@ -1,56 +1,64 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 ################################################################################
 # Repository
 ################################################################################
 
-SCRIPT_DIR="$(
-    cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit
-    pwd
-)"
-
 ROOT="$(
-    cd "${SCRIPT_DIR}/../.." >/dev/null 2>&1 || exit
+    cd "$(dirname "${BASH_SOURCE[0]}")/.." >/dev/null 2>&1
     pwd
 )"
 
 ################################################################################
-# Runtime
+# Installation
 ################################################################################
 
-# shellcheck source=../../lib/runtime-interactive.sh
-# shellcheck disable=SC1091
-source "${ROOT}/lib/runtime-interactive.sh"
+INSTALLATION_ENV="${HOME}/.config/workstation/installation.env"
 
-################################################################################
-# Shell
-################################################################################
-
-# shellcheck source=../../lib/shell-loader.sh
-# shellcheck disable=SC1091
-source "${ROOT}/lib/shell-loader.sh"
-
-################################################################################
-# Local Extensions
-################################################################################
-
-if [[ -r "${HOME}/.profile_local" ]]; then
+if [[ -r "${INSTALLATION_ENV}" ]]; then
 
     # shellcheck disable=SC1090
-    # shellcheck disable=SC1091
-    source "${HOME}/.profile_local"
+    source "${INSTALLATION_ENV}"
 
 fi
 
 ################################################################################
-# Engineering Lab
+# Verification
 ################################################################################
 
-ENGINEERING_LAB="${HOME}/Sites/personal/engineering-lab/lib/shell/bash/init.sh"
+# shellcheck source=verify-common.sh
+# shellcheck disable=SC1091
+source "${ROOT}/scripts/verify-common.sh"
 
-if [[ -r "${ENGINEERING_LAB}" ]]; then
+################################################################################
+# Installation Path
+################################################################################
 
-    # shellcheck disable=SC1090
-    source "${ENGINEERING_LAB}"
+verify_installation() {
 
-fi
+    section "Installation"
+
+    check_variable INSTALLATION_SCHEMA
+    check_variable WORKSTATION_PRODUCT
+    check_variable WORKSTATION_ROOT
+    check_variable WORKSTATION_REPOSITORY
+    check_variable WORKSTATION_CHANNEL
+    check_variable WORKSTATION_VERSION
+
+}
+
+################################################################################
+# Main
+################################################################################
+
+printf "\n"
+printf "Installation Verification\n"
+printf "=========================\n"
+
+verify_installation
+
+summary
+footer
+status

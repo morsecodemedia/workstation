@@ -38,7 +38,12 @@ mkdir -p "${INSTALL_DIR}"
 tempfile="$(mktemp "${INSTALL_DIR}/installation.env.XXXXXX")"
 
 sed \
-    "s|{{WORKSTATION_ROOT}}|${ROOT}|g" \
+    -e "s|{{INSTALLATION_SCHEMA}}|installation/v1|g" \
+    -e "s|{{WORKSTATION_PRODUCT}}|workstation|g" \
+    -e "s|{{WORKSTATION_ROOT}}|${ROOT}|g" \
+    -e "s|{{WORKSTATION_REPOSITORY}}|https://github.com/morsecodemedia/workstation.git|g" \
+    -e "s|{{WORKSTATION_CHANNEL}}|development|g" \
+    -e "s|{{WORKSTATION_VERSION}}|1.0.0|g" \
     "${ROOT}/config/workstation/installation.env.in" \
     > "${tempfile}"
 

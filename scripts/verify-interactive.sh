@@ -129,6 +129,7 @@ verify_interactive_integrations() {
 # Main
 ################################################################################
 
+printf "\n"
 printf "Interactive Runtime Verification\n"
 printf "================================\n"
 
@@ -147,5 +148,5 @@ verify_interactive_prompt
 verify_interactive_integrations
 
 summary
-
+footer
 status

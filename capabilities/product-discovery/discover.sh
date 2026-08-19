@@ -1,56 +1,54 @@
 #!/usr/bin/env bash
 
 ################################################################################
-# Repository
+# Product Discovery
+#
+# Operation:
+#   Discover
+#
+# Purpose:
+#   Discover Workstation ecosystem products.
 ################################################################################
 
-SCRIPT_DIR="$(
-    cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit
-    pwd
+# shellcheck disable=SC1091
+source "$(dirname "${BASH_SOURCE[0]}")/../../lib/runtime.sh"
+
+parse_args "$@"
+
+################################################################################
+# Input
+################################################################################
+
+execution_state="$(
+    cat
 )"
 
-ROOT="$(
-    cd "${SCRIPT_DIR}/../.." >/dev/null 2>&1 || exit
-    pwd
+################################################################################
+# Installation
+################################################################################
+
+workstation_root="$(
+    printf "%s\n" "${execution_state}" \
+        | jq -r '.installation.root'
 )"
 
 ################################################################################
-# Runtime
+# Discovery
 ################################################################################
 
-# shellcheck source=../../lib/runtime-interactive.sh
-# shellcheck disable=SC1091
-source "${ROOT}/lib/runtime-interactive.sh"
+product_list="$(
+    product_discovery "${workstation_root}"
+)"
 
 ################################################################################
-# Shell
+# Output
 ################################################################################
 
-# shellcheck source=../../lib/shell-loader.sh
-# shellcheck disable=SC1091
-source "${ROOT}/lib/shell-loader.sh"
-
-################################################################################
-# Local Extensions
-################################################################################
-
-if [[ -r "${HOME}/.profile_local" ]]; then
-
-    # shellcheck disable=SC1090
-    # shellcheck disable=SC1091
-    source "${HOME}/.profile_local"
-
-fi
-
-################################################################################
-# Engineering Lab
-################################################################################
-
-ENGINEERING_LAB="${HOME}/Sites/personal/engineering-lab/lib/shell/bash/init.sh"
-
-if [[ -r "${ENGINEERING_LAB}" ]]; then
-
-    # shellcheck disable=SC1090
-    source "${ENGINEERING_LAB}"
-
-fi
+jq -n \
+    --argjson products "${product_list}" '
+{
+    schema: "product-discovery/v1",
+    products: $products,
+    warnings: []
+}
+'
