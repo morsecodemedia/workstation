@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 
 ################################################################################
-# Runtime Primitive
+# Runtime Service
 #
 # Product Discovery
 ################################################################################
 
-product_discovery() {
+runtime_products_discover() {
 
     local workstation_root="$1"
 
     local parent_directory
-    local product_directory
-    local installation_template
+    local repository
+    local template
     local product_id
-    local product_name
+    local manifest
     local registered
+    local name
+    local root
 
     local products='[]'
 
@@ -23,12 +25,12 @@ product_discovery() {
         dirname "${workstation_root}"
     )"
 
-    while read -r product_directory; do
+    while read -r repository; do
 
-        [[ -n "${product_directory}" ]] || continue
+        [[ -d "${repository}/config" ]] || continue
 
-        installation_template="$(
-            find "${product_directory}/config" \
+        template="$(
+            find "${repository}/config" \
                 -mindepth 2 \
                 -maxdepth 2 \
                 -name installation.env.in \
@@ -37,44 +39,54 @@ product_discovery() {
                 | head -1
         )"
 
-        [[ -n "${installation_template}" ]] || continue
+        [[ -n "${template}" ]] || continue
 
         product_id="$(
-            basename "$(dirname "${installation_template}")"
+            basename "$(dirname "${template}")"
         )"
 
-        product_name="$(
-            printf "%s\n" "${product_id}" \
-                | sed 's/-/ /g'
-        )"
+        manifest="${HOME}/.config/${product_id}/installation.env"
 
         registered=false
 
-        if [[ -f "${HOME}/.config/${product_id}/installation.env" ]]; then
-            registered=true
-        fi
+        name="${product_id}"
+        root="${repository}"
 
+        if [[ -f "${manifest}" ]]; then
+
+            # shellcheck disable=SC1090
+            source "${manifest}"
+
+            registered=true
+
+            name="${PRODUCT_NAME}"
+            root="${PRODUCT_ROOT}"
+
+        fi
+        
         products="$(
             jq \
                 --arg id "${product_id}" \
-                --arg name "${product_name}" \
-                --arg path "${product_directory}" \
+                --arg name "${name}" \
+                --arg root "${root}" \
                 --argjson registered "${registered}" \
                 '
                 . + [{
                     id: $id,
                     name: $name,
-                    path: $path,
+                    root: $root,
                     registered: $registered
                 }]
                 ' <<< "${products}"
         )"
 
     done < <(
+
         find "${parent_directory}" \
             -mindepth 1 \
             -maxdepth 1 \
             -type d
+
     )
 
     printf "%s\n" "${products}"

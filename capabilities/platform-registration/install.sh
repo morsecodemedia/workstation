@@ -39,11 +39,12 @@ tempfile="$(mktemp "${INSTALL_DIR}/installation.env.XXXXXX")"
 
 sed \
     -e "s|{{INSTALLATION_SCHEMA}}|installation/v1|g" \
-    -e "s|{{WORKSTATION_PRODUCT}}|workstation|g" \
-    -e "s|{{WORKSTATION_ROOT}}|${ROOT}|g" \
-    -e "s|{{WORKSTATION_REPOSITORY}}|https://github.com/morsecodemedia/workstation.git|g" \
-    -e "s|{{WORKSTATION_CHANNEL}}|development|g" \
-    -e "s|{{WORKSTATION_VERSION}}|1.0.0|g" \
+    -e "s|{{PRODUCT_ID}}|workstation|g" \
+    -e "s|{{PRODUCT_NAME}}|Workstation|g" \
+    -e "s|{{PRODUCT_ROOT}}|${ROOT}|g" \
+    -e "s|{{PRODUCT_REPOSITORY}}|https://github.com/morsecodemedia/workstation.git|g" \
+    -e "s|{{PRODUCT_CHANNEL}}|development|g" \
+    -e "s|{{PRODUCT_VERSION}}|1.0.0|g" \
     "${ROOT}/config/workstation/installation.env.in" \
     > "${tempfile}"
 

@@ -1,54 +1,76 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 ################################################################################
-# Product Discovery
-#
-# Operation:
-#   Discover
-#
-# Purpose:
-#   Discover Workstation ecosystem products.
+# Repository
 ################################################################################
 
+SCRIPT_DIR="$(
+    cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 || exit
+    pwd
+)"
+
+ROOT="$(
+    cd "${SCRIPT_DIR}/../.." >/dev/null 2>&1 || exit
+    pwd
+)"
+
+################################################################################
+# Runtime
+################################################################################
+
+# shellcheck source=../../lib/runtime.sh
 # shellcheck disable=SC1091
-source "$(dirname "${BASH_SOURCE[0]}")/../../lib/runtime.sh"
+source "${ROOT}/lib/runtime.sh"
 
 parse_args "$@"
 
-################################################################################
-# Input
-################################################################################
-
-execution_state="$(
-    cat
-)"
 
 ################################################################################
 # Installation
 ################################################################################
 
-workstation_root="$(
-    printf "%s\n" "${execution_state}" \
-        | jq -r '.installation.root'
-)"
+INSTALLATION_ENV="${HOME}/.config/workstation/installation.env"
+
+if [[ ! -r "${INSTALLATION_ENV}" ]]; then
+    printf "Product Discovery: Workstation is not registered.\n" >&2
+    exit 1
+fi
+
+# shellcheck disable=SC1090
+source "${INSTALLATION_ENV}"
 
 ################################################################################
 # Discovery
 ################################################################################
 
-product_list="$(
-    product_discovery "${workstation_root}"
+products="$(
+    runtime_products_discover "${PRODUCT_ROOT}"
 )"
 
 ################################################################################
 # Output
 ################################################################################
 
-jq -n \
-    --argjson products "${product_list}" '
+result="$(
+    jq -n \
+        --argjson products "${products}" '
 {
     schema: "product-discovery/v1",
     products: $products,
     warnings: []
 }
 '
+)"
+
+if is_pretty; then
+
+    printf "%s\n" "${result}" \
+        | "${SCRIPT_DIR}/renderers/pretty.sh"
+
+else
+
+    printf "%s\n" "${result}"
+
+fi

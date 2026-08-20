@@ -26,6 +26,9 @@ Capabilities
     plan
     apply
 
+  products
+    discover
+
   config
     deploy
     remove
@@ -114,6 +117,25 @@ case "${command}" in
         ;;
     esac
     ;;
+
+  products)
+    [[ $# -gt 0 ]] || {
+      printf "Missing product operation.\n" >&2
+      exit 1
+    }
+    operation="${1:-}"
+    shift
+    case "${operation}" in
+      discover)
+        exec "${ROOT}/capabilities/product-discovery/discover.sh" "$@"
+        ;;
+      *)
+        printf "Unknown product operation: %s\n" "${operation}" >&2
+        exit 1
+        ;;
+    esac
+    ;;
+
 
   config)
     [[ $# -gt 0 ]] || {
