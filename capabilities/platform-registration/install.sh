@@ -58,3 +58,13 @@ jq -n \
     root: $root
 }
 '
+
+################################################################################
+# Executable Registration
+################################################################################
+
+mkdir -p "${HOME}/.local/bin"
+
+ln -sfn \
+    "${ROOT}/bin/workstation" \
+    "${HOME}/.local/bin/workstation"
