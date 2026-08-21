@@ -58,6 +58,14 @@ source "${RUNTIME_DIR}/terminal.sh"
 source "${RUNTIME_DIR}/prompt.sh"
 
 ################################################################################
+# Template
+################################################################################
+
+# shellcheck source=runtime/template.sh
+# shellcheck disable=SC1091
+source "${RUNTIME_DIR}/template.sh"
+
+################################################################################
 ## Runtime Services
 ################################################################################
 
@@ -92,6 +100,8 @@ source "${RUNTIME_DIR}/selector.sh"
 # shellcheck source=runtime/navigation.sh
 # shellcheck disable=SC1091
 source "${RUNTIME_DIR}/navigation.sh"
+
+
 
 ################################################################################
 # Runtime Services

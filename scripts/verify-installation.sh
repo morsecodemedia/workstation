@@ -41,11 +41,12 @@ verify_installation() {
     section "Installation"
 
     check_variable INSTALLATION_SCHEMA
-    check_variable WORKSTATION_PRODUCT
-    check_variable WORKSTATION_ROOT
-    check_variable WORKSTATION_REPOSITORY
-    check_variable WORKSTATION_CHANNEL
-    check_variable WORKSTATION_VERSION
+    check_variable PRODUCT_ID
+    check_variable PRODUCT_NAME
+    check_variable PRODUCT_ROOT
+    check_variable PRODUCT_REPOSITORY
+    check_variable PRODUCT_CHANNEL
+    check_variable PRODUCT_VERSION
 
 }
 

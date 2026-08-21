@@ -28,6 +28,14 @@ ROOT="$(
 )"
 
 ################################################################################
+# Runtime
+################################################################################
+
+# shellcheck source=../../lib/runtime-loader.sh
+# shellcheck disable=SC1091
+source "${ROOT}/lib/runtime-loader.sh"
+
+################################################################################
 # Installation
 ################################################################################
 
@@ -37,16 +45,16 @@ mkdir -p "${INSTALL_DIR}"
 
 tempfile="$(mktemp "${INSTALL_DIR}/installation.env.XXXXXX")"
 
-sed \
-    -e "s|{{INSTALLATION_SCHEMA}}|installation/v1|g" \
-    -e "s|{{PRODUCT_ID}}|workstation|g" \
-    -e "s|{{PRODUCT_NAME}}|Workstation|g" \
-    -e "s|{{PRODUCT_ROOT}}|${ROOT}|g" \
-    -e "s|{{PRODUCT_REPOSITORY}}|https://github.com/morsecodemedia/workstation.git|g" \
-    -e "s|{{PRODUCT_CHANNEL}}|development|g" \
-    -e "s|{{PRODUCT_VERSION}}|1.0.0|g" \
+runtime_template_render \
     "${ROOT}/config/workstation/installation.env.in" \
-    > "${tempfile}"
+    "${tempfile}" \
+    INSTALLATION_SCHEMA="installation/v1" \
+    PRODUCT_ID="workstation" \
+    PRODUCT_NAME="Workstation" \
+    PRODUCT_ROOT="${ROOT}" \
+    PRODUCT_REPOSITORY="https://github.com/morsecodemedia/workstation.git" \
+    PRODUCT_CHANNEL="development" \
+    PRODUCT_VERSION="1.0.0"
 
 mv -f "${tempfile}" "${INSTALL_DIR}/installation.env"
 
