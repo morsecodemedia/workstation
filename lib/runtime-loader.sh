@@ -101,8 +101,6 @@ source "${RUNTIME_DIR}/selector.sh"
 # shellcheck disable=SC1091
 source "${RUNTIME_DIR}/navigation.sh"
 
-
-
 ################################################################################
 # Runtime Services
 ################################################################################

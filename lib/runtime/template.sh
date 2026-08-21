@@ -6,7 +6,7 @@
 # Template Rendering
 ################################################################################
 
-runtime_template_render() {
+mcu_template_render() {
 
     local template="$1"
     local destination="$2"

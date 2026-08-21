@@ -45,7 +45,7 @@ mkdir -p "${INSTALL_DIR}"
 
 tempfile="$(mktemp "${INSTALL_DIR}/installation.env.XXXXXX")"
 
-runtime_template_render \
+mcu_template_render \
     "${ROOT}/config/workstation/installation.env.in" \
     "${tempfile}" \
     INSTALLATION_SCHEMA="installation/v1" \
